@@ -1,0 +1,14 @@
+##  Plugin Information  ##
+name: SakuraGroup
+version: version-number-unknown
+main: syam.sakuragroup.SakuraGroup
+description: SakuraServer Group Management Plugin
+website: http://sakura-server.net/
+depend: [Vault, PermissionsEx]
+##  Original Author     ##
+author: syam
+commands:
+    sakuragroup:
+      usage: /sakuragroup - to see the help
+      aliases: [sg, group]
+      description: To see the SakuraGroup help.
