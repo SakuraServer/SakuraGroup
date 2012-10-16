@@ -52,7 +52,7 @@ public class ConfigurationManager {
 	private String mysqlDBName = "DatabaseName";
 	private String mysqlUserName = "UserName";
 	private String mysqlUserPass = "UserPassword";
-	private String mysqlTablePrefix = "likes_";
+	private String mysqlTablePrefix = "sg_";
 
 	/**
 	 * コンストラクタ
@@ -100,7 +100,7 @@ public class ConfigurationManager {
 		mysqlDBName = plugin.getConfig().getString("MySQL.Database.Name", "DatabaseName");
 		mysqlUserName = plugin.getConfig().getString("MySQL.Database.User_Name", "Username");
 		mysqlUserPass = plugin.getConfig().getString("MySQL.Database.User_Password", "UserPassword");
-		mysqlTablePrefix = plugin.getConfig().getString("MySQL.Database.TablePrefix", "likes_");
+		mysqlTablePrefix = plugin.getConfig().getString("MySQL.Database.TablePrefix", "sg_");
 
 		// check Vault
 		if (!initialLoad && useVault && (plugin.getVault() == null || plugin.getEconomy() == null)){
