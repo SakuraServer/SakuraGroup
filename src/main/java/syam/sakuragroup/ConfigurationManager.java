@@ -98,9 +98,16 @@ public class ConfigurationManager {
 		mysqlAddress = plugin.getConfig().getString("MySQL.Server.Address", "localhost");
 		mysqlPort = plugin.getConfig().getInt("MySQL.Server.Port", 3306);
 		mysqlDBName = plugin.getConfig().getString("MySQL.Database.Name", "DatabaseName");
-		mysqlUserName = plugin.getConfig().getString("MySQL.Database.User_Name", "Username");
+		mysqlUserName = plugin.getConfig().getString("MySQL.Database.User_Name", "UserName");
 		mysqlUserPass = plugin.getConfig().getString("MySQL.Database.User_Password", "UserPassword");
 		mysqlTablePrefix = plugin.getConfig().getString("MySQL.Database.TablePrefix", "sg_");
+
+		// デフォルト拒否
+		if (mysqlAddress == "localhost" && mysqlPort == 3306 && mysqlDBName == "DatabaseName" && mysqlUserName == "Username" && mysqlUserPass == "UserPassword" && mysqlTablePrefix == "sg_"){
+			log.severe(logPrefix + "MySQL values NOT configured! Please change config.yml and restart server!");
+			plugin.getPluginLoader().disablePlugin(plugin);
+			return;
+		}
 
 		// check Vault
 		if (!initialLoad && useVault && (plugin.getVault() == null || plugin.getEconomy() == null)){

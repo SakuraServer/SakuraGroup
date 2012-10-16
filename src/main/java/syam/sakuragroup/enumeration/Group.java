@@ -9,7 +9,7 @@ package syam.sakuragroup.enumeration;
  * @author syam(syamn)
  */
 public enum Group {
-	DEFAULT (0, "Citizens"),
+	DEFAULT (0, "Citizen"),
 	BUILDER (1, "Builder"),
 	ENGINEER (2, "Engineer"),
 	DESIGNER (3, "Designer"),

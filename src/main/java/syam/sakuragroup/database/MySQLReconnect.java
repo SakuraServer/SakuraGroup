@@ -25,11 +25,11 @@ public class MySQLReconnect implements Runnable{
 		if (!Database.isConnected()){
 			Database.connect();
 			if (Database.isConnected()){
-				PlayerManager.saveAll();
-				PlayerManager.clearAll();
+				PlayerManager.saveAllProfiles();
+				PlayerManager.clearAllProfiles();
 
 				for (Player player : plugin.getServer().getOnlinePlayers()){
-					PlayerManager.addPlayer(player);
+					PlayerManager.addPlayerProfile(player);
 				}
 			}
 		}

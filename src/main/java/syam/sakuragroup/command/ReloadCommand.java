@@ -4,6 +4,9 @@
  */
 package syam.sakuragroup.command;
 
+import org.bukkit.entity.Player;
+
+import syam.sakuragroup.manager.PlayerManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Actions;
 
@@ -31,6 +34,14 @@ public class ReloadCommand extends BaseCommand {
 
 		// TODO: データベース保存 新設定で接続試行
 
+		// player remapping
+		PlayerManager.saveAllProfiles();
+		PlayerManager.clearAllProfiles();
+
+		for (Player player : plugin.getServer().getOnlinePlayers()){
+			PlayerManager.addPlayerProfile(player);
+		}
+
 		// 権限管理プラグイン再設定
 		Perms.setupPermissionHandler();
 
@@ -41,5 +52,4 @@ public class ReloadCommand extends BaseCommand {
 	public boolean permission() {
 		return Perms.RELOAD.has(sender);
 	}
-
 }

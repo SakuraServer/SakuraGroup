@@ -35,7 +35,7 @@ public class PlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerLogin(final PlayerLoginEvent event){
 		// プレイヤー追加
-		PlayerManager.addPlayer(event.getPlayer());
+		PlayerManager.addPlayerProfile(event.getPlayer());
 	}
 
 	// プレイヤーがログアウトした

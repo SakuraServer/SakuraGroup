@@ -17,6 +17,7 @@ public enum Perms {
 
 	/* コマンド系 */
 	// User Commands
+	LIST ("user.list"),
 
 	// Admin Commands
 	RELOAD	("admin.reload"),

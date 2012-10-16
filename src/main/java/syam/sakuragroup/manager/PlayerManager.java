@@ -31,7 +31,7 @@ public class PlayerManager {
 	 * @param player 追加するプレイヤー
 	 * @return プレイヤーオブジェクト {@link LPlayer}
 	 */
-	public static PlayerProfile addPlayer(Player player){
+	public static PlayerProfile addPlayerProfile(Player player){
 		PlayerProfile prof = players.get(player.getName());
 
 		if (prof != null){
@@ -50,21 +50,19 @@ public class PlayerManager {
 	 * 指定したプレイヤーをマップから削除します
 	 * @param playerName 削除するプレイヤー名
 	 */
-	public static void remove(String playerName){
+	public static void removeProfile(String playerName){
 		players.remove(playerName);
 	}
-
 	/**
 	 * プレイヤーマップを全削除します
 	 */
-	public static void clearAll(){
+	public static void clearAllProfiles(){
 		players.clear();
 	}
-
 	/**
 	 * 全プレイヤーデータを保存する
 	 */
-	public static int saveAll(){
+	public static int saveAllProfiles(){
 		int i = 0;
 		for (PlayerProfile prof : players.values()){
 			prof.save();
@@ -72,7 +70,6 @@ public class PlayerManager {
 		}
 		return i;
 	}
-
 	/**
 	 * プレイヤーを取得する
 	 * @param playerName 取得対象のプレイヤー名
@@ -81,7 +78,6 @@ public class PlayerManager {
 	public static PlayerProfile getProfile(String playerName){
 		return players.get(playerName);
 	}
-
 	/**
 	 * プレイヤーのプロフィールを取得する
 	 * @param player 取得対象のプレイヤー

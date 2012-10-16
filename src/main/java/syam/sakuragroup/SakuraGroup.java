@@ -26,10 +26,12 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 import syam.sakuragroup.command.BaseCommand;
 import syam.sakuragroup.command.ConfirmCommand;
 import syam.sakuragroup.command.HelpCommand;
+import syam.sakuragroup.command.ListCommand;
 import syam.sakuragroup.command.ReloadCommand;
 import syam.sakuragroup.command.queue.ConfirmQueue;
 import syam.sakuragroup.database.Database;
 import syam.sakuragroup.listener.PlayerListener;
+import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.manager.PlayerManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Metrics;
@@ -63,7 +65,10 @@ public class SakuraGroup extends JavaPlugin{
 	// ** Hookup Plugins **
 	private static Vault vault = null;
 	private static Economy economy = null;
-	private static PermissionsEx pex = null;
+
+	// ** Manager **/
+	private PEXManager pexm = null;
+
 
 	/**
 	 * プラグイン起動処理
@@ -83,7 +88,8 @@ public class SakuraGroup extends JavaPlugin{
 		}
 
 		// プラグインフック
-		setupPEX();
+		pexm = new PEXManager(this); //setup pex
+
 		if (config.getUseVault()){
 			config.setUseVault(setupVault());
 		}
@@ -109,7 +115,7 @@ public class SakuraGroup extends JavaPlugin{
 
 		// プレイヤー追加
 		for (Player player : getServer().getOnlinePlayers()){
-			PlayerManager.addPlayer(player);
+			PlayerManager.addPlayerProfile(player);
 		}
 
 		// メッセージ表示
@@ -124,6 +130,8 @@ public class SakuraGroup extends JavaPlugin{
 	 */
 	@Override
 	public void onDisable(){
+		PlayerManager.saveAllProfiles();
+
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is disabled!");
@@ -138,25 +146,10 @@ public class SakuraGroup extends JavaPlugin{
 		commands.add(new ConfirmCommand());
 
 		// General Commands
+		commands.add(new ListCommand());
 
 		// Admin Commands
 		commands.add(new ReloadCommand());
-	}
-
-	public boolean setupPEX(){
-		Plugin plugin = this.getServer().getPluginManager().getPlugin("PermissionsEx");
-		if (plugin == null) plugin = plugin.getServer().getPluginManager().getPlugin("permissionsex");
-		if (plugin == null) return false;
-		try{
-			pex = (PermissionsEx) plugin;
-		}catch (Exception ex){
-			log.warning(logPrefix+ "PermissionsEx plugin NOT found. Disabling plugin..");
-			ex.printStackTrace();
-			this.getPluginLoader().disablePlugin(this);
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
@@ -256,23 +249,6 @@ public class SakuraGroup extends JavaPlugin{
 	}
 
 	/**
-	 * PermissionsExを返す
-	 * @return PermissionsEx
-	 */
-	public PermissionsEx getPEX(){
-		return pex;
-	}
-
-	/**
-	 * PermissionsManagerを返す
-	 * @return PermissionsManager
-	 */
-	public PermissionManager getPM(){
-		if (pex == null) return null;
-		return pex.getPermissionManager();
-	}
-
-	/**
 	 * Vaultを返す
 	 * @return Vault
 	 */
@@ -294,6 +270,14 @@ public class SakuraGroup extends JavaPlugin{
 	 */
 	public static Database getDatabases(){
 		return database;
+	}
+
+	/**
+	 * PermissionsExマネージャを返す
+	 * @return PEXManager
+	 */
+	public PEXManager getPEXmgr(){
+		return pexm;
 	}
 
 	/**
