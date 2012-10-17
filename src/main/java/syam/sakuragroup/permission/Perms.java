@@ -19,6 +19,7 @@ public enum Perms {
 	// User Commands
 	LIST ("user.list"),
 	CHANGE ("user.change"),
+	LEAVE ("user.leave"),
 
 	// Admin Commands
 	RELOAD	("admin.reload"),

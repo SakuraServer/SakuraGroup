@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import ru.tehkode.permissions.PermissionGroup;
@@ -126,6 +127,16 @@ public class PEXManager {
 
 	public Group getGroup(String groupName){
 		return groups.get(groupName);
+	}
+
+	public String getCurrentGroup(Player player){
+		PermissionUser user = PermissionsEx.getUser(player);
+		String[] groups = user.getGroupsNames();
+		if (groups.length == 1){
+			return groups[0];
+		}else{
+			return null; // throw NPE
+		}
 	}
 
 	/**
