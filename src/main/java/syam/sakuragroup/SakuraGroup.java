@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import syam.sakuragroup.command.BaseCommand;
+import syam.sakuragroup.command.ChangeCommand;
 import syam.sakuragroup.command.ConfirmCommand;
 import syam.sakuragroup.command.HelpCommand;
 import syam.sakuragroup.command.ListCommand;
@@ -32,7 +33,6 @@ import syam.sakuragroup.command.queue.ConfirmQueue;
 import syam.sakuragroup.database.Database;
 import syam.sakuragroup.listener.PlayerListener;
 import syam.sakuragroup.manager.PEXManager;
-import syam.sakuragroup.manager.PlayerManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Metrics;
 
@@ -113,11 +113,6 @@ public class SakuraGroup extends JavaPlugin{
 		database = new Database(this);
 		database.createStructure();
 
-		// プレイヤー追加
-		for (Player player : getServer().getOnlinePlayers()){
-			PlayerManager.addPlayerProfile(player);
-		}
-
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is enabled!");
@@ -130,8 +125,6 @@ public class SakuraGroup extends JavaPlugin{
 	 */
 	@Override
 	public void onDisable(){
-		PlayerManager.saveAllProfiles();
-
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is disabled!");
@@ -147,6 +140,7 @@ public class SakuraGroup extends JavaPlugin{
 
 		// General Commands
 		commands.add(new ListCommand());
+		commands.add(new ChangeCommand());
 
 		// Admin Commands
 		commands.add(new ReloadCommand());

@@ -5,7 +5,14 @@
 #==================#
 #   Basic Config   #
 #==================#
-# None yet! :3
+Groups:
+  - Citizen
+  - Builder
+  - Engineer
+  - Designer
+
+Time: 1
+Measure: MINUTE
 
 #==================#
 #   Vault Config   #

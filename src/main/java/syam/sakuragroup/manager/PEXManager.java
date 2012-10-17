@@ -34,7 +34,7 @@ public class PEXManager {
 	private PermissionManager pm = null;
 
 	private List<String> pexgroups = new ArrayList<String>(); // exists pex groups
-	private List<String> groups = new ArrayList<String>(); // Available groups
+	private List<String> groups = new ArrayList<String>();
 
 	private final SakuraGroup plugin;
 	public PEXManager(final SakuraGroup plugin){
@@ -45,17 +45,7 @@ public class PEXManager {
 			return;
 		}
 
-		// building groups
-		for (PermissionGroup group : pm.getGroups()){
-			pexgroups.add(group.getName());
-		}
-		for (Group group : Group.values()){
-			if (pexgroups.contains(group.getName())){
-				groups.add(group.getName());
-			}else{
-				log.warning(logPrefix+ "Group NOT exist! Skipping group: "+ group.getName());
-			}
-		}
+		loadGroups();
 	}
 
 	/**
@@ -90,10 +80,27 @@ public class PEXManager {
 	}
 
 	/**
-	 * 変更可能なグループリストを取得する
-	 * @return
+	 * グループリストを再構築する
 	 */
-	public List<String> getAvailableGroups(){
+	public void loadGroups(){
+		// Building all exists
+		pexgroups.clear();
+		for (PermissionGroup group : pm.getGroups()){
+			pexgroups.add(group.getName());
+		}
+
+		// Building all availables
+		groups.clear();
+		for (String name : plugin.getConfigs().getGroups()){
+			if (!pexgroups.contains(name)){
+				log.warning(logPrefix+ "Group NOT exist! Disabled group: "+ name);
+				continue;
+			}
+			groups.add(name);
+		}
+	}
+
+	public List<String> getAvailables(){
 		return this.groups;
 	}
 

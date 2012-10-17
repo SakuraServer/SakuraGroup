@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import syam.sakuragroup.SakuraGroup;
-import syam.sakuragroup.manager.PlayerManager;
 
 /**
  * PlayerListener (PlayerListener.java)
@@ -29,19 +28,5 @@ public class PlayerListener implements Listener {
 
 	public PlayerListener(final SakuraGroup plugin){
 		this.plugin = plugin;
-	}
-
-	// プレイヤーがログインしようとした
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onPlayerLogin(final PlayerLoginEvent event){
-		// プレイヤー追加
-		PlayerManager.addPlayerProfile(event.getPlayer());
-	}
-
-	// プレイヤーがログアウトした
-	//@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onPlayerQuit(final PlayerQuitEvent event){
-		Player player = event.getPlayer();
-		/* TODO: Do GC here */
 	}
 }

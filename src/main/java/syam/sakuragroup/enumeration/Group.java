@@ -17,6 +17,7 @@ public enum Group {
 
 	private int id;
 	private String name;
+	private boolean available = true;
 
 	Group(int groupID, String name){
 		this.id = groupID;
@@ -37,5 +38,13 @@ public enum Group {
 	 */
 	public String getName(){
 		return this.name;
+	}
+
+	public void setAvailable(boolean available){
+		this.available = available;
+	}
+
+	public boolean getAvailable(){
+		return this.available;
 	}
 }

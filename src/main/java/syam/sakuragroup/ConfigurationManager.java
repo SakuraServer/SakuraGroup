@@ -16,6 +16,9 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,10 +39,13 @@ public class ConfigurationManager {
 	private static File pluginDir = new File("plugins", "SakuraGroup");
 
 	// デフォルトの設定定数
-	//private final List<String> defaultPermissions = new ArrayList<String>() {{add("vault"); add("pex"); add("superperms"); add("ops");}};
+	private final ArrayList<String> availableGroups = new ArrayList<String>() {{add("Citizen"); add("Builder"); add("Engineer"); add("Designer");}};
 
 	// 設定項目
 	/* Basic Configs */
+	private List<String> groups = availableGroups;
+	private int time = 7;
+	private int measure = 0;
 
 	/* Vault Config */
 	private boolean useVault = false;
@@ -86,6 +92,13 @@ public class ConfigurationManager {
 		checkver(version);
 
 		/* Basic Configs */
+		if (plugin.getConfig().get("Groups") != null){
+			groups = plugin.getConfig().getStringList("Groups");
+		}else{
+			groups = availableGroups;
+		}
+		time = plugin.getConfig().getInt("Time");
+		String ms = plugin.getConfig().getString("Measure");
 
 		/* Vault Configs */
 		useVault = plugin.getConfig().getBoolean("UseVault", false);
@@ -113,10 +126,39 @@ public class ConfigurationManager {
 		if (!initialLoad && useVault && (plugin.getVault() == null || plugin.getEconomy() == null)){
 		    plugin.setupVault();
 		}
+
+		// convert measure
+		if (ms.equalsIgnoreCase("SECOND")){
+			measure = Calendar.SECOND;
+		}else if (ms.equalsIgnoreCase("MINUTE")){
+			measure = Calendar.MINUTE;
+		}else if(ms.equalsIgnoreCase("HOUR")){
+			measure = Calendar.HOUR;
+		}else if(ms.equalsIgnoreCase("DAY")){
+			measure = Calendar.DAY_OF_MONTH;
+		}else if(ms.equalsIgnoreCase("WEEK")){
+			measure = Calendar.WEEK_OF_MONTH;
+		}else if(ms.equalsIgnoreCase("MONTH")){
+			measure = Calendar.MONTH;
+		}else if(ms.equalsIgnoreCase("YEAR")){
+			measure = Calendar.YEAR;
+		}else{
+			log.warning(logPrefix+ "Time measure NOT defined properly! Use default: DAY");
+			measure = Calendar.DAY_OF_MONTH;
+		}
 	}
 
 	// 設定 getter ここから
 	/* Basic Configs */
+	public List<String> getGroups(){
+		return this.groups;
+	}
+	public int getTime(){
+		return this.time;
+	}
+	public int getMeasure(){
+		return this.measure;
+	}
 
 	/* Vault Config */
 	public boolean getUseVault(){

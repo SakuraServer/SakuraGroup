@@ -87,9 +87,10 @@ public class Database {
 			write("CREATE TABLE IF NOT EXISTS `" + tablePrefix + "users` (" +
 					"`player_id` int(10) unsigned NOT NULL AUTO_INCREMENT," +	// 割り当てられたプレイヤーID
 					"`player_name` varchar(32) NOT NULL," +						// プレイヤー名
-					"`group` int(3) NOT NULL DEFAULT '0'," +					// グループID
-					"`status` int(2) unsigned NOT NULL DEFAULT '0'," +		// Likeした回数
-					"`lastchange` int(32) unsigned NOT NULL DEFAULT '0'," +		// 最後にLikeした日時
+					"`group` varchar(50) NOT NULL," +							// グループ名
+					"`status` int(2) unsigned NOT NULL DEFAULT '0'," +			// グループ変更した回数
+					"`changed` int(9) unsigned NOT NULL DEFAULT '0'," +			// グループ変更した回数
+					"`lastchange` int(32) unsigned NOT NULL DEFAULT '0'," +		// 最後にグループ変更した日時
 					"PRIMARY KEY (`player_id`)," +
 					"UNIQUE KEY `player_name` (`player_name`)" +
 					") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");

@@ -7,7 +7,6 @@ package syam.sakuragroup.database;
 import org.bukkit.entity.Player;
 
 import syam.sakuragroup.SakuraGroup;
-import syam.sakuragroup.manager.PlayerManager;
 
 /**
  * MySQLReconnect (MySQLReconnect.java)
@@ -25,12 +24,7 @@ public class MySQLReconnect implements Runnable{
 		if (!Database.isConnected()){
 			Database.connect();
 			if (Database.isConnected()){
-				PlayerManager.saveAllProfiles();
-				PlayerManager.clearAllProfiles();
-
-				for (Player player : plugin.getServer().getOnlinePlayers()){
-					PlayerManager.addPlayerProfile(player);
-				}
+				// TODO: do stuff..
 			}
 		}
 	}
