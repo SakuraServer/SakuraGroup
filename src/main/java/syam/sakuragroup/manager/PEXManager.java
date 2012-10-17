@@ -16,7 +16,6 @@ import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import syam.sakuragroup.SakuraGroup;
-import syam.sakuragroup.enumeration.Group;
 import syam.sakuragroup.util.Actions;
 
 /**

@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionGroup;
 import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.database.Database;
-import syam.sakuragroup.enumeration.Group;
 import syam.sakuragroup.exception.CommandException;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;

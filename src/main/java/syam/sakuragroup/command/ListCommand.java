@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import syam.sakuragroup.enumeration.Group;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Actions;
@@ -31,12 +30,9 @@ public class ListCommand extends BaseCommand {
 		PEXManager mgr = plugin.getPEXmgr();
 
 		Actions.message(sender, msgPrefix+ "&a有効なグループリスト");
-		for (Group group : Group.values()){
-			// デフォルトは非表示
-			if (group == Group.DEFAULT) continue;
-
-			List<String> names = mgr.getPlayersByGroup(group.getName());
-			Actions.message(sender, "&b ** &e" + group.getName() + "&7: &6" + names.size() + "人");
+		for (String name : mgr.getAvailables()){
+			List<String> names = mgr.getPlayersByGroup(name);
+			Actions.message(sender, "&b ** &e" + name + "&7: &6" + names.size() + "人");
 			if (names.size() > 0){
 				Actions.message(sender, Util.join(names, "&7,&f "));
 			}else{
