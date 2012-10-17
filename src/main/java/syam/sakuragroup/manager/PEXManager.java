@@ -57,7 +57,7 @@ public class PEXManager {
 	public boolean changeGroup(String name, String groupName, CommandSender sender){
 		PermissionGroup group = pm.getGroup(groupName);
 		PermissionGroup[] setGroup = {group};
-		pex.getUser(name).setGroups(setGroup);
+		PermissionsEx.getUser(name).setGroups(setGroup);
 
 		if (sender != null){
 			Actions.message(sender, "&6" + name + " &aを&6" + group.getName() + "&aに変更しました！");
@@ -89,6 +89,13 @@ public class PEXManager {
 			pexgroups.add(group.getName());
 		}
 
+		// Check default group
+		if (!pexgroups.contains(plugin.getConfigs().getDefGroup())){
+			log.severe(logPrefix + "Default group " + plugin.getConfigs().getDefGroup() + " is NOT found! Disabling plugin..");
+			plugin.getPluginLoader().disablePlugin(plugin);
+			return;
+		}
+
 		// Building all availables
 		groups.clear();
 		for (String name : plugin.getConfigs().getGroups()){
@@ -102,6 +109,10 @@ public class PEXManager {
 
 	public List<String> getAvailables(){
 		return this.groups;
+	}
+
+	public PermissionGroup getPEXgroup(String groupName){
+		return pm.getGroup(groupName);
 	}
 
 	/**

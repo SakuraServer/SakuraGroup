@@ -5,8 +5,8 @@
 #==================#
 #   Basic Config   #
 #==================#
+DefaultGroup: Citizen
 Groups:
-  - Citizen
   - Builder
   - Engineer
   - Designer

@@ -43,6 +43,7 @@ public class ConfigurationManager {
 
 	// 設定項目
 	/* Basic Configs */
+	private String defaultGroup = "Citizen";
 	private List<String> groups = availableGroups;
 	private int time = 7;
 	private int measure = 0;
@@ -92,6 +93,7 @@ public class ConfigurationManager {
 		checkver(version);
 
 		/* Basic Configs */
+		defaultGroup = plugin.getConfig().getString("DefaultGroup");
 		if (plugin.getConfig().get("Groups") != null){
 			groups = plugin.getConfig().getStringList("Groups");
 		}else{
@@ -150,6 +152,9 @@ public class ConfigurationManager {
 
 	// 設定 getter ここから
 	/* Basic Configs */
+	public String getDefGroup(){
+		return this.defaultGroup;
+	}
 	public List<String> getGroups(){
 		return this.groups;
 	}

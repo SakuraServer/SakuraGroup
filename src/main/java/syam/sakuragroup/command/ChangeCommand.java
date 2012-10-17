@@ -10,12 +10,14 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import ru.tehkode.permissions.PermissionGroup;
 import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.database.Database;
 import syam.sakuragroup.enumeration.Group;
 import syam.sakuragroup.exception.CommandException;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
+import syam.sakuragroup.util.Actions;
 import syam.sakuragroup.util.Util;
 
 /**
@@ -93,7 +95,11 @@ public class ChangeCommand extends BaseCommand{
 			// Change group
 			mgr.changeGroup(player.getName(), newGroup, null);
 
-
+			// messaging
+			PermissionGroup group = mgr.getPEXgroup(newGroup);
+			Actions.broadcastMessage(msgPrefix+ "&6" + player.getName() + "&aさんが&6" + ((group.getPrefix().length() > 0) ? group.getPrefix() : group.getName()) + "&aグループに所属しました！");
+		}else{
+			throw new CommandException("使い方を誤っています！");
 		}
 	}
 
