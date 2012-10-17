@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
@@ -39,12 +40,12 @@ public class ConfigurationManager {
 	private static File pluginDir = new File("plugins", "SakuraGroup");
 
 	// デフォルトの設定定数
-	private final ArrayList<String> availableGroups = new ArrayList<String>() {{add("Citizen"); add("Builder"); add("Engineer"); add("Designer");}};
+	//private final ArrayList<String> availableGroups = new ArrayList<String>() {{add("Citizen"); add("Builder"); add("Engineer"); add("Designer");}};
 
 	// 設定項目
 	/* Basic Configs */
 	private String defaultGroup = "Citizen";
-	private List<String> groups = availableGroups;
+	private List<String> groups = new ArrayList<String>();
 	private int time = 7;
 	private int measure = 0;
 
@@ -94,11 +95,18 @@ public class ConfigurationManager {
 
 		/* Basic Configs */
 		defaultGroup = plugin.getConfig().getString("DefaultGroup");
+		groups.clear();
 		if (plugin.getConfig().get("Groups") != null){
-			groups = plugin.getConfig().getStringList("Groups");
+			MemorySection ms = (MemorySection) plugin.getConfig().get("Groups");
+			for (String group : ms.getKeys(false)){
+				groups.add(group);
+			}
 		}else{
-			groups = availableGroups;
+			log.severe(logPrefix + "Group values NOT found! Please change config.yml and restart server!");
+			plugin.getPluginLoader().disablePlugin(plugin);
+			return;
 		}
+
 		time = plugin.getConfig().getInt("Time");
 		String ms = plugin.getConfig().getString("Measure");
 
@@ -118,7 +126,7 @@ public class ConfigurationManager {
 		mysqlTablePrefix = plugin.getConfig().getString("MySQL.Database.TablePrefix", "sg_");
 
 		// デフォルト拒否
-		if (mysqlAddress == "localhost" && mysqlPort == 3306 && mysqlDBName == "DatabaseName" && mysqlUserName == "Username" && mysqlUserPass == "UserPassword" && mysqlTablePrefix == "sg_"){
+		if (mysqlAddress == "localhost" && mysqlPort == 3306 && mysqlDBName == "DatabaseName" && mysqlUserName == "UserName" && mysqlUserPass == "UserPassword" && mysqlTablePrefix == "sg_"){
 			log.severe(logPrefix + "MySQL values NOT configured! Please change config.yml and restart server!");
 			plugin.getPluginLoader().disablePlugin(plugin);
 			return;
@@ -157,6 +165,12 @@ public class ConfigurationManager {
 	}
 	public List<String> getGroups(){
 		return this.groups;
+	}
+	public Double getGroupCost(String groupName){
+		return plugin.getConfig().getDouble("Groups." + groupName + ".Cost", 5000.0D);
+	}
+	public String getGroupColor(String groupName){
+		return plugin.getConfig().getString("Groups." + groupName + ".ColorTag", "");
 	}
 	public int getTime(){
 		return this.time;

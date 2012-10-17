@@ -7,9 +7,15 @@
 #==================#
 DefaultGroup: Citizen
 Groups:
-  - Builder
-  - Engineer
-  - Designer
+  Builder:
+    Cost: 5000
+    ColorTag: "&b"
+  Engineer:
+    Cost: 5000
+    ColorTag: "&6"
+  Designer:
+    Cost: 5000
+    ColorTag: "&c"
 
 Time: 1
 Measure: MINUTE

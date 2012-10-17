@@ -5,7 +5,10 @@
 package syam.sakuragroup.manager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
@@ -15,6 +18,7 @@ import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.util.Actions;
 
@@ -32,8 +36,8 @@ public class PEXManager {
 	private PermissionsEx pex = null;
 	private PermissionManager pm = null;
 
-	private List<String> pexgroups = new ArrayList<String>(); // exists pex groups
-	private List<String> groups = new ArrayList<String>();
+	private List<String> pexgroups = new ArrayList<String>(); // exists pex oldGroups
+	private Map<String, Group> groups = new HashMap<String, Group>();
 
 	private final SakuraGroup plugin;
 	public PEXManager(final SakuraGroup plugin){
@@ -95,23 +99,33 @@ public class PEXManager {
 			return;
 		}
 
-		// Building all availables
+		// Building all available groups
 		groups.clear();
 		for (String name : plugin.getConfigs().getGroups()){
+			// check exists
 			if (!pexgroups.contains(name)){
 				log.warning(logPrefix+ "Group NOT exist! Disabled group: "+ name);
 				continue;
 			}
-			groups.add(name);
+
+			// get configure
+			Double cost = plugin.getConfigs().getGroupCost(name);
+			String color = plugin.getConfigs().getGroupColor(name);
+
+			groups.put(name, new Group(name, cost, color));
 		}
 	}
 
-	public List<String> getAvailables(){
-		return this.groups;
+	public Set<String> getAvailables(){
+		return this.groups.keySet();
 	}
 
 	public PermissionGroup getPEXgroup(String groupName){
 		return pm.getGroup(groupName);
+	}
+
+	public Group getGroup(String groupName){
+		return groups.get(groupName);
 	}
 
 	/**
