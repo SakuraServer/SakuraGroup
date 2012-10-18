@@ -7,12 +7,14 @@ package syam.sakuragroup.command;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.entity.Player;
 
 import ru.tehkode.permissions.PermissionGroup;
 import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
+import syam.sakuragroup.command.queue.Queueable;
 import syam.sakuragroup.database.Database;
 import syam.sakuragroup.exception.CommandException;
 import syam.sakuragroup.manager.PEXManager;
@@ -25,7 +27,7 @@ import syam.sakuragroup.util.Util;
  * ChangeCommand (ChangeCommand.java)
  * @author syam(syamn)
  */
-public class ChangeCommand extends BaseCommand{
+public class ChangeCommand extends BaseCommand implements Queueable{
 	public ChangeCommand(){
 		bePlayer = true;
 		name = "change";
@@ -33,6 +35,12 @@ public class ChangeCommand extends BaseCommand{
 		usage = "<- change your current group";
 	}
 	private PEXManager mgr;
+
+	// グループ変更時の一時変数
+	private Group group = null;
+	private double cost = 0.0D;
+	int status = 0;
+	int changed = 0;
 
 	@Override
 	public void execute() throws CommandException {
@@ -66,13 +74,12 @@ public class ChangeCommand extends BaseCommand{
 
 		update(group);
 	}
-
 	private void update(final Group group) throws CommandException{
 		// prepare update
+		this.group = group;
+
 		//int playerID = -1;
-		int status = 0;
-		int changed = 0;
-		Long unixtime = Util.getCurrentUnixSec();
+
 
 		// Get Database
 		Database db = SakuraGroup.getDatabases();
@@ -107,29 +114,52 @@ public class ChangeCommand extends BaseCommand{
 			}
 		}
 
-		// Pay cost
-		double cost = plugin.getConfigs().getGroupCost(group.getName());
-		boolean paid = false;
+		//ArrayList<String> strArgs = new ArrayList<String>() {{add (group.getName());}};
+
+		// Put variables
+		this.cost = plugin.getConfigs().getGroupCost(group.getName());
 		if (plugin.getConfigs().getUseVault() && cost < 0){
 			log.warning(logPrefix + "Group " + group.getName() + " cost config NOT exist or negative value! Change to 0.");
 			cost = 0.0D;
 		}
+
+		// Put Queue, messaging
+		plugin.getQueue().addQueue(sender, this, args, 15);
+		Actions.message(sender, "&dグループ  " + group.getColor() + group.getName() + " &dに変更しようとしています！");
+		if (plugin.getConfigs().getUseVault() && cost > 0 && !Perms.FREE_CHANGE.has(player)){
+			Actions.message(sender, "&d変更費用として &6" + Actions.getCurrencyString(cost) + " &dが必要です！");
+		}
+		Actions.message(sender, "&dこの操作は取り消しすることができません。本当に続行しますか？");
+		Actions.message(sender, "&d続行するには &a/group confirm &dコマンドを入力してください！");
+		Actions.message(sender, "&a/group confirm &dコマンドは15秒間のみ有効です。");
+	}
+
+	@Override
+	public void executeQueue(List<String> qArgs){
+		// check null
+		if (this.group == null){
+			Actions.message(player, "&cこのグループは存在しません！");
+			return;
+		}
+
+		// Pay cost
+		boolean paid = false;
 		if (plugin.getConfigs().getUseVault() && cost > 0 && !Perms.FREE_CHANGE.has(player)){
 			paid = Actions.takeMoney(player.getName(), cost);
 			if (!paid){
-				throw new CommandException("&cお金が足りません！ " + Actions.getCurrencyString(cost) + "必要です！");
+				Actions.message(player, "&cお金が足りません！ " + Actions.getCurrencyString(cost) + "必要です！");
+				return;
 			}
 		}
 
 		// Update!
+		Database db = SakuraGroup.getDatabases();
 		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`) " +
-				"VALUES (?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1, unixtime.intValue());
-
+				"VALUES (?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1,  Util.getCurrentUnixSec().intValue());
 		// Change group!
 		mgr.changeGroup(player.getName(), group.getName(), null);
 
 		// messaging
-		//PermissionGroup group = mgr.getPEXgroup(newGroup);
 		Actions.broadcastMessage(msgPrefix+ "&6" + player.getName() + "&aさんが&f" + group.getColor() + group.getName() + "&aグループに所属しました！");
 
 		String msg = msgPrefix + "&aあなたのグループを変更しました！";
