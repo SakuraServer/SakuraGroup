@@ -19,7 +19,7 @@ public enum Perms {
 	// User Commands
 	LIST ("user.list"),
 	CHANGE_SIGN ("user.change.sign"),
-	CHANGE_CMD ("user.change.cmd"),
+
 	LEAVE ("user.leave"),
 
 	// Admin Commands
@@ -30,6 +30,8 @@ public enum Perms {
 
 	// Special Perms
 	PLACESIGN ("admin.placesign"),
+	CHANGE_CMD ("admin.change.cmd"),
+
 	;
 
 	// ノードヘッダー
