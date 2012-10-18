@@ -116,7 +116,8 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 			time.setTime(Util.getDateByUnixTime(changedTime));
 			time.add(plugin.getConfigs().getMeasure(), plugin.getConfigs().getTime());
 			if (!time.before(Calendar.getInstance())){
-				throw new CommandException("あなたはまだグループの変更可能時間に達していません！");
+				Actions.message(sender, "&cあなたはまだグループの変更可能時間に達していません！");
+				throw new CommandException("あと " + Util.getDiffString(Util.getCurrentUnixSec(), time.getTimeInMillis() / 1000));
 			}
 		}
 
