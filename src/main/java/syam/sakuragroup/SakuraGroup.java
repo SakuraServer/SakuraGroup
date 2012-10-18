@@ -32,7 +32,7 @@ import syam.sakuragroup.command.ListCommand;
 import syam.sakuragroup.command.ReloadCommand;
 import syam.sakuragroup.command.queue.ConfirmQueue;
 import syam.sakuragroup.database.Database;
-import syam.sakuragroup.listener.PlayerListener;
+import syam.sakuragroup.listener.SignListener;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Metrics;
@@ -48,7 +48,7 @@ public class SakuraGroup extends JavaPlugin{
 	public final static String msgPrefix = "&c[SakuraGroup] &f";
 
 	// ** Listener **
-	PlayerListener playerListener = new PlayerListener(this);
+	SignListener signListener = new SignListener(this);
 
 	// ** Commands **
 	private List<BaseCommand> commands = new ArrayList<BaseCommand>();
@@ -104,7 +104,7 @@ public class SakuraGroup extends JavaPlugin{
 		Perms.setupPermissionHandler();
 
 		// Regist Listeners
-		pm.registerEvents(playerListener, this);
+		pm.registerEvents(signListener, this);
 
 		// コマンド登録
 		registerCommands();

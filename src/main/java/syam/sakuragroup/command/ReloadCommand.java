@@ -6,6 +6,7 @@ package syam.sakuragroup.command;
 
 import org.bukkit.entity.Player;
 
+import syam.sakuragroup.manager.SignManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Actions;
 
@@ -38,6 +39,8 @@ public class ReloadCommand extends BaseCommand {
 
 		// グループ再読み込み
 		plugin.getPEXmgr().loadGroups();
+
+		SignManager.clearSelectedGroup();
 
 		Actions.message(sender, "&aConfiguration reloaded!");
 	}

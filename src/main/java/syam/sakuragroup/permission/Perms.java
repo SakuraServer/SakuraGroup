@@ -28,7 +28,7 @@ public enum Perms {
 	FREE_CHANGE ("free.change"),
 
 	// Special Perms
-
+	PLACESIGN ("admin.placesign"),
 	;
 
 	// ノードヘッダー
