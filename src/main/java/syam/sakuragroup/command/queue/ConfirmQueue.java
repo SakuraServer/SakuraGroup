@@ -73,4 +73,11 @@ public class ConfirmQueue {
 			this.queue.remove(cmd);
 		}
 	}
+
+	/**
+	 * キューをクリアする
+	 */
+	public void clearQueue(){
+		this.queue.clear();
+	}
 }

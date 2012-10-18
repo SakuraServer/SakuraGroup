@@ -6,6 +6,7 @@ package syam.sakuragroup.command;
 
 import org.bukkit.entity.Player;
 
+import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.manager.SignManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Actions;
@@ -33,6 +34,7 @@ public class ReloadCommand extends BaseCommand {
 		}
 
 		// TODO: データベース保存 新設定で接続試行
+		SakuraGroup.getDatabases().createStructure();
 
 		// 権限管理プラグイン再設定
 		Perms.setupPermissionHandler();
@@ -40,7 +42,9 @@ public class ReloadCommand extends BaseCommand {
 		// グループ再読み込み
 		plugin.getPEXmgr().loadGroups();
 
+		// テンポラリ保持データをクリア
 		SignManager.clearSelectedGroup();
+		plugin.getQueue().clearQueue();
 
 		Actions.message(sender, "&aConfiguration reloaded!");
 	}
