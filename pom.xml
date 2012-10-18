@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>syam.sakuragroup</groupId>
   <artifactId>SakuraGroup</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>SakuraGroup</name>
   <description>SakuraServer Group Management Plugin</description>
 
