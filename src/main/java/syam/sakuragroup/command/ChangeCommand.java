@@ -37,7 +37,7 @@ public class ChangeCommand extends BaseCommand{
 		PEXManager mgr = plugin.getPEXmgr();
 
 		// 引数が1つ グループ指定
-		if (args.size() == 1){
+		if (args.size() >= 1){
 			// 新グループ確定
 			String newGroup = null;
 			for (String groups : mgr.getAvailables()){
@@ -88,17 +88,35 @@ public class ChangeCommand extends BaseCommand{
 				}
 			}
 
-			// Update
+			// Pay cost
+			double cost = plugin.getConfigs().getGroupCost(newGroup);
+			boolean paid = false;
+			if (plugin.getConfigs().getUseVault() && cost < 0){
+				log.warning(logPrefix + "Group " + newGroup + " cost config NOT exist or negative value! Change to 0.");
+				cost = 0.0D;
+			}
+			if (plugin.getConfigs().getUseVault() && cost > 0 && !Perms.FREE_CHANGE.has(player)){
+				paid = Actions.takeMoney(player.getName(), cost);
+				if (!paid){
+					throw new CommandException("&cお金が足りません！ " + Actions.getCurrencyString(cost) + "必要です！");
+				}
+			}
+
+			// Update!
 			db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`) " +
 					"VALUES (?, ?, ?, ?, ?)", player.getName(), newGroup, status, changed + 1, unixtime.intValue());
 
-			// Change group
+			// Change group!
 			mgr.changeGroup(player.getName(), newGroup, null);
 
 			// messaging
 			//PermissionGroup group = mgr.getPEXgroup(newGroup);
 			Group group = mgr.getGroup(newGroup);
 			Actions.broadcastMessage(msgPrefix+ "&6" + player.getName() + "&aさんが&f" + group.getColor() + group.getName() + "&aグループに所属しました！");
+
+			String msg = msgPrefix + "&aあなたのグループを変更しました！";
+			if (paid) msg = msg + " &c(-" + Actions.getCurrencyString(cost) + ")";
+			Actions.message(player, msg);
 		}else{
 			throw new CommandException("使い方を誤っています！");
 		}
