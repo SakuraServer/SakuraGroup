@@ -4,8 +4,6 @@
  */
 package syam.sakuragroup.command;
 
-import org.bukkit.entity.Player;
-
 import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.manager.SignManager;
 import syam.sakuragroup.permission.Perms;

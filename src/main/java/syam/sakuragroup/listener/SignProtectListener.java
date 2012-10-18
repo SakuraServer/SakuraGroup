@@ -122,10 +122,10 @@ public class SignProtectListener implements Listener{
 		}
 		// 周囲ブロックチェック
 		final BlockFace[] directions = new BlockFace[]{
-			BlockFace.NORTH,
-			BlockFace.EAST,
-			BlockFace.SOUTH,
-			BlockFace.WEST
+				BlockFace.NORTH,
+				BlockFace.EAST,
+				BlockFace.SOUTH,
+				BlockFace.WEST
 		};
 		for (BlockFace face : directions){
 			check = block.getRelative(face);

@@ -6,8 +6,6 @@ package syam.sakuragroup.command;
 
 import java.util.List;
 
-import org.bukkit.entity.Player;
-
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Actions;

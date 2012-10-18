@@ -14,15 +14,12 @@ import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ru.tehkode.permissions.PermissionManager;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 import syam.sakuragroup.command.BaseCommand;
 import syam.sakuragroup.command.ChangeCommand;
 import syam.sakuragroup.command.ConfirmCommand;
@@ -160,8 +157,8 @@ public class SakuraGroup extends JavaPlugin{
 			RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 			// 経済概念のプラグインがロードされているかチェック
 			if(economyProvider==null){
-	        	log.warning(logPrefix+"Economy plugin NOT found. Disabled Vault plugin integration.");
-		        return false;
+				log.warning(logPrefix+"Economy plugin NOT found. Disabled Vault plugin integration.");
+				return false;
 			}
 
 			try{
@@ -169,12 +166,12 @@ public class SakuraGroup extends JavaPlugin{
 				economy = economyProvider.getProvider();
 
 				if (vault == null || economy == null){
-				    throw new NullPointerException();
+					throw new NullPointerException();
 				}
 			} // 例外チェック
 			catch(Exception e){
 				log.warning(logPrefix+"Could NOT be hook to Vault plugin. Disabled Vault plugin integration.");
-		        return false;
+				return false;
 			}
 
 			// Success
@@ -183,23 +180,23 @@ public class SakuraGroup extends JavaPlugin{
 		}
 		else {
 			// Vaultが見つからなかった
-	        log.warning(logPrefix+"Vault plugin was NOT found! Disabled Vault integration.");
-	        return false;
-	    }
+			log.warning(logPrefix+"Vault plugin was NOT found! Disabled Vault integration.");
+			return false;
+		}
 	}
 
 	/**
-     * Metricsセットアップ
-     */
-    private void setupMetrics(){
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException ex) {
-            log.warning(logPrefix+"cant send metrics data!");
-            ex.printStackTrace();
-        }
-    }
+	 * Metricsセットアップ
+	 */
+	private void setupMetrics(){
+		try {
+			Metrics metrics = new Metrics(this);
+			metrics.start();
+		} catch (IOException ex) {
+			log.warning(logPrefix+"cant send metrics data!");
+			ex.printStackTrace();
+		}
+	}
 
 	/**
 	 * コマンドが呼ばれた
@@ -213,16 +210,16 @@ public class SakuraGroup extends JavaPlugin{
 			}
 
 			outer:
-			for (BaseCommand command : commands.toArray(new BaseCommand[0])){
-				String[] cmds = command.name.split(" ");
-				for (int i = 0; i < cmds.length; i++){
-					if (i >= args.length || !cmds[i].equalsIgnoreCase(args[i])){
-						continue outer;
+				for (BaseCommand command : commands.toArray(new BaseCommand[0])){
+					String[] cmds = command.name.split(" ");
+					for (int i = 0; i < cmds.length; i++){
+						if (i >= args.length || !cmds[i].equalsIgnoreCase(args[i])){
+							continue outer;
+						}
+						// 実行
+						return command.run(this, sender, args, commandLabel);
 					}
-					// 実行
-					return command.run(this, sender, args, commandLabel);
 				}
-			}
 			// 有効コマンドなし ヘルプ表示
 			new HelpCommand().run(this, sender, args, commandLabel);
 			return true;

@@ -38,6 +38,6 @@ public class HelpCommand extends BaseCommand{
 
 	@Override
 	public boolean permission() {
-			return true;
+		return true;
 	}
 }

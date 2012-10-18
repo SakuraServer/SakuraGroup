@@ -4,8 +4,6 @@
  */
 package syam.sakuragroup.database;
 
-import org.bukkit.entity.Player;
-
 import syam.sakuragroup.SakuraGroup;
 
 /**

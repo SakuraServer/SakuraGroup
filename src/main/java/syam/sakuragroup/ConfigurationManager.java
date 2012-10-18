@@ -130,7 +130,7 @@ public class ConfigurationManager {
 
 		// check Vault
 		if (!initialLoad && useVault && (plugin.getVault() == null || plugin.getEconomy() == null)){
-		    plugin.setupVault();
+			plugin.setupVault();
 		}
 
 		// convert measure
@@ -358,10 +358,10 @@ public class ConfigurationManager {
 		FileChannel srcChannel = new FileInputStream(srcPath).getChannel();
 		FileChannel destChannel = new FileOutputStream(destPath).getChannel();
 		try {
-		    srcChannel.transferTo(0, srcChannel.size(), destChannel);
+			srcChannel.transferTo(0, srcChannel.size(), destChannel);
 		} finally {
-		    srcChannel.close();
-		    destChannel.close();
+			srcChannel.close();
+			destChannel.close();
 		}
 	}
 

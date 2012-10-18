@@ -17,8 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
@@ -84,7 +82,6 @@ public class SignListener implements Listener {
 			}
 		}
 	}
-
 	// 看板を設置した
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onSignChange(final SignChangeEvent event){

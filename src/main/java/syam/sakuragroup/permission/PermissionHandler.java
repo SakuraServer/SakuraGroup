@@ -97,7 +97,7 @@ public class PermissionHandler {
 				break;
 			}
 		}
-		*/
+		 */
 
 		// デフォルトはSuperPerms リストに有効な記述が無かった場合
 		if (usePermType == null){
@@ -138,19 +138,19 @@ public class PermissionHandler {
 			case VAULT:
 				return vaultPermission.has(player, permission);
 
-			// PEX
+				// PEX
 			case PEX:
 				return pex.has(player, permission);
 
-			// SuperPerms
+				// SuperPerms
 			case SUPERPERMS:
 				return player.hasPermission(permission);
 
-			// Ops
+				// Ops
 			case OPS:
 				return player.isOp();
 
-			// Other Types, forgot add here
+				// Other Types, forgot add here
 			default:
 				log.warning(logPrefix+ "Plugin author forgot add to integration to this permission plugin! Please report this!");
 				return false;
@@ -170,13 +170,13 @@ public class PermissionHandler {
 			case VAULT:
 				return vaultPermission.has(worldName, playerName, permission);
 
-			// PEX
+				// PEX
 			case PEX:
 				PermissionUser user = PermissionsEx.getPermissionManager().getUser(playerName);
 				if (user == null){ return false; }
 				return user.has(permission, worldName);
 
-			// SuperPerms
+				// SuperPerms
 			case SUPERPERMS: {
 				// SuperPermsはクロスワールドな権限システムではないので、このチェックは正しく動作しません
 				// これに起因して不具合が発生するようなら、他の権限プラグインに乗り換えてください
@@ -210,7 +210,7 @@ public class PermissionHandler {
 			case VAULT:
 				return vaultPermission.getPrimaryGroup(worldName, playerName);
 
-			// PEX
+				// PEX
 			case PEX:
 				PermissionUser user = PermissionsEx.getPermissionManager().getUser(playerName);
 				if (user == null){ return null; }
@@ -221,7 +221,7 @@ public class PermissionHandler {
 					return null;
 				}
 
-			// SuperPerms
+				// SuperPerms
 			case SUPERPERMS: {
 				// SuperPerms not support group
 				return null;
@@ -249,15 +249,15 @@ public class PermissionHandler {
 			case VAULT:
 				return "Vault: " + Bukkit.getServer().getServicesManager().getRegistration(Permission.class).getProvider().getName();
 
-			// PEX
+				// PEX
 			case PEX:
 				return "PermissionsEx";
 
-			// Ops
+				// Ops
 			case OPS:
 				return "OPs";
 
-			// SuperPerms And Other Types, forgot add here
+				// SuperPerms And Other Types, forgot add here
 			case SUPERPERMS:
 			default:
 				return "SuperPerms";

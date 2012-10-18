@@ -113,16 +113,16 @@ public class Actions {
 	 * @return
 	 */
 	public static String combine(String[] s, String glue)
-    {
-      int k = s.length;
-      if (k == 0){ return null; }
-      StringBuilder out = new StringBuilder();
-      out.append(s[0]);
-      for (int x = 1; x < k; x++){
-        out.append(glue).append(s[x]);
-      }
-      return out.toString();
-    }
+	{
+		int k = s.length;
+		if (k == 0){ return null; }
+		StringBuilder out = new StringBuilder();
+		out.append(s[0]);
+		for (int x = 1; x < k; x++){
+			out.append(glue).append(s[x]);
+		}
+		return out.toString();
+	}
 	/**
 	 * コマンドをコンソールから実行する
 	 * @param command
@@ -183,8 +183,8 @@ public class Actions {
 	 * @return 変換後の文字列
 	 */
 	public static String coloring(String string){
-	    if (string == null) return null;
-	    return string.replaceAll("&([0-9a-fA-Fk-oK-Or])", "\u00A7$1");
+		if (string == null) return null;
+		return string.replaceAll("&([0-9a-fA-Fk-oK-Or])", "\u00A7$1");
 	}
 
 	/****************************************/
@@ -235,11 +235,11 @@ public class Actions {
 	 * @return 通貨単位
 	 */
 	public static String getCurrencyName(double amount){
-	    if (amount <= 1.0D){
-	        return SakuraGroup.getInstance().getEconomy().currencyNameSingular();
-	    }else{
-	        return SakuraGroup.getInstance().getEconomy().currencyNamePlural();
-	    }
+		if (amount <= 1.0D){
+			return SakuraGroup.getInstance().getEconomy().currencyNameSingular();
+		}else{
+			return SakuraGroup.getInstance().getEconomy().currencyNamePlural();
+		}
 	}
 	/**
 	 * 指定した金額での適切な単位を含めた文字列を返す
@@ -247,7 +247,7 @@ public class Actions {
 	 * @return 文字列
 	 */
 	public static String getCurrencyString(double amount){
-	    return SakuraGroup.getInstance().getEconomy().format(amount);
+		return SakuraGroup.getInstance().getEconomy().format(amount);
 	}
 
 	/****************************************/
