@@ -18,7 +18,8 @@ public enum Perms {
 	/* コマンド系 */
 	// User Commands
 	LIST ("user.list"),
-	CHANGE ("user.change"),
+	CHANGE_SIGN ("user.change.sign"),
+	CHANGE_CMD ("user.change.cmd"),
 	LEAVE ("user.leave"),
 
 	// Admin Commands

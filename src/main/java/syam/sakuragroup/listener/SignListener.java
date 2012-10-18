@@ -60,6 +60,9 @@ public class SignListener implements Listener {
 			Sign sign = (Sign) block.getState();
 			if (sign.getLine(0).equals("§a[SakuraGroup]")){
 				final Player player = event.getPlayer();
+				if (!Perms.CHANGE_SIGN.has(player)){
+					return;
+				}
 
 				Group group = null;
 				for (String name : plugin.getPEXmgr().getAvailables()){

@@ -48,10 +48,16 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 		// 引数が1つ グループ指定
 		if (args.size() >= 1){
+			if (!Perms.CHANGE_CMD.has(sender)){
+				throw new CommandException("コマンドから直接グループを変更する権限がありません！");
+			}
 			update(args.get(0));
 		}
 		// 引数なし 選択チェック
 		else{
+			if (!Perms.CHANGE_SIGN.has(sender)){
+				throw new CommandException("変更するグループ名を指定してください！");
+			}
 			Group group = SignManager.getSelectedGroup(player);
 			if (group == null){
 				throw new CommandException("あなたはまだグループ看板を選択していません！");
@@ -169,6 +175,6 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 	@Override
 	public boolean permission() {
-		return Perms.CHANGE.has(sender);
+		return (Perms.CHANGE_CMD.has(sender) || Perms.CHANGE_SIGN.has(sender));
 	}
 }
