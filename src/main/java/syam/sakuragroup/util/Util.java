@@ -5,6 +5,7 @@
 package syam.sakuragroup.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -118,5 +119,34 @@ public class Util{
 		int h = min / 60;
 		int m = min % 60;
 		return h + "時間" + m + "分";
+	}
+
+	/**
+	 * 文字列からCalendarクラスの単位数値を返す
+	 * @param str 文字列
+	 * @return 対応する数値 または変換出来ない場合 -1
+	 */
+	public static int getMeasure(String str){
+		int measure = 0;
+
+		if (str.equalsIgnoreCase("SECOND")){
+			measure = Calendar.SECOND;
+		}else if (str.equalsIgnoreCase("MINUTE")){
+			measure = Calendar.MINUTE;
+		}else if(str.equalsIgnoreCase("HOUR")){
+			measure = Calendar.HOUR;
+		}else if(str.equalsIgnoreCase("DAY")){
+			measure = Calendar.DAY_OF_MONTH;
+		}else if(str.equalsIgnoreCase("WEEK")){
+			measure = Calendar.WEEK_OF_MONTH;
+		}else if(str.equalsIgnoreCase("MONTH")){
+			measure = Calendar.MONTH;
+		}else if(str.equalsIgnoreCase("YEAR")){
+			measure = Calendar.YEAR;
+		}else{
+			measure = -1;
+		}
+
+		return measure;
 	}
 }

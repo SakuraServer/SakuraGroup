@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import syam.sakuragroup.util.Util;
+
 /**
  * ConfigurationManager (ConfigurationManager.java)
  * @author syam(syamn)
@@ -138,21 +140,8 @@ public class ConfigurationManager {
 		}
 
 		// convert measure
-		if (ms.equalsIgnoreCase("SECOND")){
-			measure = Calendar.SECOND;
-		}else if (ms.equalsIgnoreCase("MINUTE")){
-			measure = Calendar.MINUTE;
-		}else if(ms.equalsIgnoreCase("HOUR")){
-			measure = Calendar.HOUR;
-		}else if(ms.equalsIgnoreCase("DAY")){
-			measure = Calendar.DAY_OF_MONTH;
-		}else if(ms.equalsIgnoreCase("WEEK")){
-			measure = Calendar.WEEK_OF_MONTH;
-		}else if(ms.equalsIgnoreCase("MONTH")){
-			measure = Calendar.MONTH;
-		}else if(ms.equalsIgnoreCase("YEAR")){
-			measure = Calendar.YEAR;
-		}else{
+		measure = Util.getMeasure(ms);
+		if (measure == -1){
 			log.warning(logPrefix+ "Time measure NOT defined properly! Use default: DAY");
 			measure = Calendar.DAY_OF_MONTH;
 		}
