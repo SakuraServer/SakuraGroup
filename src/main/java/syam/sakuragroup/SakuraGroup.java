@@ -33,6 +33,7 @@ import syam.sakuragroup.command.ReloadCommand;
 import syam.sakuragroup.command.queue.ConfirmQueue;
 import syam.sakuragroup.database.Database;
 import syam.sakuragroup.listener.SignListener;
+import syam.sakuragroup.listener.SignProtectListener;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
 import syam.sakuragroup.util.Metrics;
@@ -49,6 +50,7 @@ public class SakuraGroup extends JavaPlugin{
 
 	// ** Listener **
 	SignListener signListener = new SignListener(this);
+	SignProtectListener protectListener = new SignProtectListener(this);
 
 	// ** Commands **
 	private List<BaseCommand> commands = new ArrayList<BaseCommand>();
@@ -105,6 +107,7 @@ public class SakuraGroup extends JavaPlugin{
 
 		// Regist Listeners
 		pm.registerEvents(signListener, this);
+		pm.registerEvents(protectListener, this);
 
 		// コマンド登録
 		registerCommands();
