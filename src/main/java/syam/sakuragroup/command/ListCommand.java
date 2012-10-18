@@ -31,8 +31,11 @@ public class ListCommand extends BaseCommand {
 
 		Actions.message(sender, msgPrefix+ "&a有効なグループリスト");
 		for (String name : mgr.getAvailables()){
+			int limit = plugin.getConfigs().getGroupLimit(name);
+			String limitStr = (limit > 0) ? " &7(Max: " + limit + "人)" : "";
+
 			List<String> names = mgr.getPlayersByGroup(name);
-			Actions.message(sender, "&b ** &e" + name + "&7: &6" + names.size() + "人");
+			Actions.message(sender, "&b ** &e" + name + "&7: &6" + names.size() + "人" + limitStr);
 			if (names.size() > 0){
 				Actions.message(sender, Util.join(names, "&7,&f "));
 			}else{

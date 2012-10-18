@@ -161,6 +161,9 @@ public class ConfigurationManager {
 	public String getGroupColor(String groupName){
 		return plugin.getConfig().getString("Groups." + groupName + ".ColorTag", "");
 	}
+	public int getGroupLimit(String groupName){
+		return plugin.getConfig().getInt("Groups." + groupName + ".Limit", 0);
+	}
 	public int getTime(){
 		return this.time;
 	}

@@ -149,6 +149,14 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 			return;
 		}
 
+		// Check player limit
+		int limit = plugin.getConfigs().getGroupLimit(group.getName());
+		List<String> names = mgr.getPlayersByGroup(group.getName());
+		if (limit > 0 && names.size() >= limit){
+			Actions.message(player, "&cこのグループは定員(" + limit + "人)に達しています！");
+			return;
+		}
+
 		// Pay cost
 		boolean paid = false;
 		if (plugin.getConfigs().getUseVault() && cost > 0 && !Perms.FREE_CHANGE.has(player)){

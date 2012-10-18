@@ -10,15 +10,18 @@ Groups:
   Builder:
     Cost: 5000
     ColorTag: "&b"
+    Limit: 10
   Engineer:
     Cost: 5000
     ColorTag: "&6"
+    Limit: 10
   Designer:
     Cost: 5000
     ColorTag: "&c"
+    Limit: 10
 
-Time: 1
-Measure: MINUTE
+Time: 2
+Measure: WEEK
 
 #==================#
 #   Vault Config   #
