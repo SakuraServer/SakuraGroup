@@ -28,9 +28,6 @@ Measure: WEEK
 #==================#
 # Hook to Vault for economy integration
 UseVault: false
-# Costs
-Cost:
-  action: 500
 
 #==================#
 #   MySQL Config   #

@@ -53,8 +53,6 @@ public class ConfigurationManager {
 
 	/* Vault Config */
 	private boolean useVault = false;
-	// Costs
-	private double cost_action = 500D;
 
 	/* MySQL Configs */
 	private String mysqlAddress = "localhost";
@@ -114,10 +112,6 @@ public class ConfigurationManager {
 
 		/* Vault Configs */
 		useVault = plugin.getConfig().getBoolean("UseVault", false);
-		if (useVault){
-		    // get costs..
-		    cost_action = plugin.getConfig().getDouble("Cost.action", 500D);
-		}
 
 		/* MySQL Configs */
 		mysqlAddress = plugin.getConfig().getString("MySQL.Server.Address", "localhost");
@@ -177,9 +171,6 @@ public class ConfigurationManager {
 	}
 	public void setUseVault(boolean bool){
 		this.useVault = bool;
-	}
-	public double getCost_action(){
-		return this.cost_action;
 	}
 	/* MySQL Configs */
 	public String getMySQLaddress(){
