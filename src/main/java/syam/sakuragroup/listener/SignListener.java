@@ -72,13 +72,13 @@ public class SignListener implements Listener {
 					}
 				}
 				if (group == null){
-					Actions.message(player, msgPrefix+ "&cこのグループは存在しません！");
+					Actions.message(player, msgPrefix+ "&6このグループは存在しません！");
 					return;
 				}
 
 				SignManager.setSelectedGroup(player, group);
-				Actions.message(player, msgPrefix+ "&aグループ " + group.getColor() + group.getName() + " を選択しました！");
-				Actions.message(player, msgPrefix+ "&aこのグループへ変更するには、&6/group change &aコマンドを使ってください！");
+				Actions.message(player, msgPrefix+ "&aグループ " + group.getColor() + group.getName() + " &aを選択しました！");
+				Actions.message(player, msgPrefix+ "&6/group change &aコマンドでグループを変更します！");
 
 				event.setCancelled(true);
 			}
@@ -96,12 +96,12 @@ public class SignListener implements Listener {
 			Sign sign = (Sign)state;
 
 			/* [SakuraGroup] 特殊看板 */
-			if (event.getLine(0).toLowerCase().indexOf("[SakuraGroup]") != -1){
+			if (event.getLine(0).toLowerCase().indexOf("[sakuragroup]") != -1){
 				// 権限チェック
 				if (!Perms.PLACESIGN.has(player)){
 					event.setLine(0, "§c[SakuraGroup]");
 					event.setLine(1, "Perm Denied :(");
-					Actions.message(player, "&cYou don't have permission to use this!");
+					Actions.message(player, "&6You don't have permission to use this!");
 					return;
 				}
 
