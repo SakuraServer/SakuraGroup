@@ -4,8 +4,13 @@
  */
 package syam.sakuragroup.command;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
@@ -26,21 +31,37 @@ public class ListCommand extends BaseCommand {
 
 	@Override
 	public void execute() {
-		PEXManager mgr = plugin.getPEXmgr();
+		final String senderName = (sender instanceof Player) ? sender.getName() : null;
 
-		Actions.message(sender, msgPrefix+ "&a有効なグループリスト");
-		for (String name : mgr.getAvailables()){
-			int limit = plugin.getConfigs().getGroupLimit(name);
-			String limitStr = (limit > 0) ? " &7(Max: " + limit + "人)" : "";
+		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run(){
+				final PEXManager mgr = plugin.getPEXmgr();
+				List<String> msg = new ArrayList<String>();
 
-			Set<String> names = mgr.getPlayersByGroup(name);
-			Actions.message(sender, "&b ** &e" + name + "&7: &6" + names.size() + "人" + limitStr);
-			if (names.size() > 0){
-				Actions.message(sender, Util.join(names, "&7,&f "));
-			}else{
-				Actions.message(sender, "&7(このグループに所属している人はいません)");
+				msg.add(msgPrefix+ "&a有効なグループリスト");
+				for (String name : mgr.getAvailables()){
+					int limit = plugin.getConfigs().getGroupLimit(name);
+					String limitStr = (limit > 0) ? " &7(Max: " + limit + "人)" : "";
+
+					Set<String> names = mgr.getPlayersByGroup(name);
+					msg.add("&b ** &e" + name + "&7: &6" + names.size() + "人" + limitStr);
+					if (names.size() > 0){
+						msg.add(Util.join(names, "&7,&f "));
+					}else{
+						msg.add("&7(このグループに所属している人はいません)");
+					}
+				}
+
+				// send messages
+				CommandSender s = (senderName == null) ? Bukkit.getConsoleSender() : Bukkit.getPlayer(senderName);
+				if (s != null){
+					for (String line : msg){
+						Actions.message(s, line);
+					}
+				}
 			}
-		}
+		}, 0L);
 	}
 
 	@Override
