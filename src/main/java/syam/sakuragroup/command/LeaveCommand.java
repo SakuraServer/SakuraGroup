@@ -54,20 +54,21 @@ public class LeaveCommand extends BaseCommand implements Queueable{
 		}
 
 		// prepare update
-		final Long unixtime = Util.getCurrentUnixSec();
 		int status = 0;
 		int changed = 0;
+		int timestamp = 0;
 
 		// Get Database
 		Database db = SakuraGroup.getDatabases();
 		HashMap<Integer, ArrayList<String>> result =
-				db.read("SELECT `status`, `changed` FROM " + db.getTablePrefix() + "users WHERE `player_name` = ?", player.getName());
+				db.read("SELECT `status`, `changed`, `lastchange` FROM " + db.getTablePrefix() + "users WHERE `player_name` = ?", player.getName());
 		if (result.size() > 0){
 			// 既にDB登録済み チェック
 			ArrayList<String> record = result.get(1);
 
 			status = Integer.valueOf(record.get(0));
 			changed = Integer.valueOf(record.get(1));
+			timestamp = Integer.valueOf(record.get(2));
 
 			// ステータスチェック
 			if (status != 0){
@@ -78,7 +79,7 @@ public class LeaveCommand extends BaseCommand implements Queueable{
 
 		// Update
 		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`) " +
-				"VALUES (?, ?, ?, ?, ?)", player.getName(), defGroup, status, changed, unixtime.intValue());
+				"VALUES (?, ?, ?, ?, ?)", player.getName(), defGroup, status, changed, timestamp);
 
 		// Change group
 		mgr.changeGroup(player.getName(), defGroup, null);
