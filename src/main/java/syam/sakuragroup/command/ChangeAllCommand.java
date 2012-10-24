@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
 import syam.sakuragroup.database.Database;
@@ -79,8 +82,20 @@ public class ChangeAllCommand extends BaseCommand{
 		for (String name : names){
 			// Change Group
 			mgr.changeGroup(name, tos, null);
+
+			// Messaging
+			Player player = Bukkit.getPlayer(name);
+			if (player != null && player.isOnline()){
+				Actions.message(player, msgPrefix + "&aあなたのグループは&6 " + tos + " &aに変更されました！");
+			}
 		}
 
+		if (froms != null){
+			Actions.broadcastMessage(msgPrefix + "&6" + froms + "&aグループメンバーは&6" + tos + "&aに変更されました！");
+		}else{
+			Actions.broadcastMessage(msgPrefix + "&aすべての特別グループメンバーは&6" + tos + "&aに変更されました！");
+		}
+		
 		Actions.message(sender, "&a" + names.size() + "人のグループを変更しました！");
 	}
 
