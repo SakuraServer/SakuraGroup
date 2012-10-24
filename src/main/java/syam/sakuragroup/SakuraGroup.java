@@ -21,6 +21,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import syam.sakuragroup.command.BaseCommand;
+import syam.sakuragroup.command.ChangeAllCommand;
 import syam.sakuragroup.command.ChangeCommand;
 import syam.sakuragroup.command.ConfirmCommand;
 import syam.sakuragroup.command.HelpCommand;
@@ -145,6 +146,7 @@ public class SakuraGroup extends JavaPlugin{
 		commands.add(new LeaveCommand());
 
 		// Admin Commands
+		commands.add(new ChangeAllCommand());
 		commands.add(new ReloadCommand());
 	}
 
