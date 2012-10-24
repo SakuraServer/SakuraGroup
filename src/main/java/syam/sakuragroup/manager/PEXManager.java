@@ -6,6 +6,7 @@ package syam.sakuragroup.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,7 @@ import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
+import syam.sakuragroup.exception.CommandException;
 import syam.sakuragroup.util.Actions;
 
 /**
@@ -70,8 +72,8 @@ public class PEXManager {
 		return true;
 	}
 
-	public List<String> getPlayersByGroup(String groupName){
-		List<String> names = new ArrayList<String>();
+	public Set<String> getPlayersByGroup(String groupName){
+		Set<String> names = new HashSet<String>();
 		for (PermissionUser user : getUsersByGroup(groupName)){
 			names.add(user.getName());
 		}
@@ -126,6 +128,14 @@ public class PEXManager {
 	}
 
 	public Group getGroup(String groupName){
+		for (String name : getAvailables()){
+			if (name.equalsIgnoreCase(groupName)){
+				return getGroupExact(name);
+			}
+		}
+		return null;
+	}
+	public Group getGroupExact(String groupName){
 		return groups.get(groupName);
 	}
 

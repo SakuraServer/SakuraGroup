@@ -65,7 +65,7 @@ public class SignListener implements Listener {
 				Group group = null;
 				for (String name : plugin.getPEXmgr().getAvailables()){
 					if (name.equalsIgnoreCase(sign.getLine(1))){
-						group = plugin.getPEXmgr().getGroup(name);
+						group = plugin.getPEXmgr().getGroupExact(name);
 						break;
 					}
 				}
@@ -106,7 +106,7 @@ public class SignListener implements Listener {
 				Group group = null;
 				for (String name : plugin.getPEXmgr().getAvailables()){
 					if (name.equalsIgnoreCase(event.getLine(1))){
-						group = plugin.getPEXmgr().getGroup(name);
+						group = plugin.getPEXmgr().getGroupExact(name);
 						break;
 					}
 				}

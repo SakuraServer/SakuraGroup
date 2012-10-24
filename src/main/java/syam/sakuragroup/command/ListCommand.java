@@ -5,6 +5,7 @@
 package syam.sakuragroup.command;
 
 import java.util.List;
+import java.util.Set;
 
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
@@ -32,7 +33,7 @@ public class ListCommand extends BaseCommand {
 			int limit = plugin.getConfigs().getGroupLimit(name);
 			String limitStr = (limit > 0) ? " &7(Max: " + limit + "人)" : "";
 
-			List<String> names = mgr.getPlayersByGroup(name);
+			Set<String> names = mgr.getPlayersByGroup(name);
 			Actions.message(sender, "&b ** &e" + name + "&7: &6" + names.size() + "人" + limitStr);
 			if (names.size() > 0){
 				Actions.message(sender, Util.join(names, "&7,&f "));

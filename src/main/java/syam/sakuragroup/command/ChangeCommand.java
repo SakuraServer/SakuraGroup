@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import syam.sakuragroup.Group;
 import syam.sakuragroup.SakuraGroup;
@@ -65,12 +66,7 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 	private void update(final String newGroupName) throws CommandException{
 		// 新グループ確定
-		Group group = null;
-		for (String name : mgr.getAvailables()){
-			if (name.equalsIgnoreCase(args.get(0))){
-				group = mgr.getGroup(name); break;
-			}
-		}
+		Group group = mgr.getGroup(args.get(0));
 		if (group == null){
 			throw new CommandException("指定したグループは存在しません！");
 		}
@@ -148,7 +144,7 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 		// Check player limit
 		int limit = plugin.getConfigs().getGroupLimit(group.getName());
-		List<String> names = mgr.getPlayersByGroup(group.getName());
+		Set<String> names = mgr.getPlayersByGroup(group.getName());
 		if (limit > 0 && names.size() >= limit){
 			Actions.message(player, "&cこのグループは定員(" + limit + "人)に達しています！");
 			return;
