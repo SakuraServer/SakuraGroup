@@ -24,11 +24,13 @@ public class ForceCheckCommand extends BaseCommand{
 	@Override
 	public void execute() throws CommandException {
 		if (ExpiredCheck.isRunning()){
-			throw new CommandException("既にチェックタスクが起動しています！");
+			throw new CommandException("&c既にチェックタスクが起動しています！");
 		}
 
-		Thread checkTask = new Thread(new ExpiredCheck(plugin, sender));
-		checkTask.start();
+		//Thread checkTask = new Thread(new ExpiredCheck(plugin, sender));
+		//checkTask.start();
+		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ExpiredCheck(plugin, sender), 0L);
+
 		Actions.message(sender, "&aチェックを開始しました");
 	}
 
