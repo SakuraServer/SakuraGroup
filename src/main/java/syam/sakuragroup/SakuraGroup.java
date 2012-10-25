@@ -27,6 +27,7 @@ import syam.sakuragroup.command.ConfirmCommand;
 import syam.sakuragroup.command.HelpCommand;
 import syam.sakuragroup.command.LeaveCommand;
 import syam.sakuragroup.command.ListCommand;
+import syam.sakuragroup.command.PayCommand;
 import syam.sakuragroup.command.ReloadCommand;
 import syam.sakuragroup.command.queue.ConfirmQueue;
 import syam.sakuragroup.database.Database;
@@ -139,6 +140,7 @@ public class SakuraGroup extends JavaPlugin{
 		// Intro Commands
 		commands.add(new HelpCommand());
 		commands.add(new ConfirmCommand());
+		commands.add(new PayCommand());
 
 		// General Commands
 		commands.add(new ListCommand());

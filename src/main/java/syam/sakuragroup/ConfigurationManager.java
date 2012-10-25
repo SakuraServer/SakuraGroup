@@ -152,6 +152,9 @@ public class ConfigurationManager {
 	public Double getGroupCost(String groupName){
 		return plugin.getConfig().getDouble("Groups." + groupName + ".Cost", -1.0D);
 	}
+	public Double getGroupKeepCost(String groupName){
+		return plugin.getConfig().getDouble("Groups." + groupName + ".KeepCost", -1.0D);
+	}
 	public String getGroupColor(String groupName){
 		return plugin.getConfig().getString("Groups." + groupName + ".ColorTag", "");
 	}

@@ -113,9 +113,10 @@ public class PEXManager {
 
 			// get configure
 			Double cost = plugin.getConfigs().getGroupCost(name);
+			Double keepcost = plugin.getConfigs().getGroupKeepCost(name);
 			String color = plugin.getConfigs().getGroupColor(name);
 
-			groups.put(name, new Group(name, cost, color));
+			groups.put(name, new Group(name, cost, keepcost, color));
 		}
 	}
 

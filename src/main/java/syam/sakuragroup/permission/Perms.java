@@ -19,7 +19,7 @@ public enum Perms {
 	// User Commands
 	LIST ("user.list"),
 	CHANGE_SIGN ("user.change.sign"),
-
+	PAY ("user.pay"),
 	LEAVE ("user.leave"),
 
 	// Admin Commands
@@ -28,6 +28,7 @@ public enum Perms {
 
 	// Free Perms
 	FREE_CHANGE ("free.change"),
+	FREE_PAY ("free.pay"),
 
 	// Special Perms
 	PLACESIGN ("admin.placesign"),

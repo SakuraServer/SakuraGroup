@@ -91,6 +91,7 @@ public class Database {
 				"`status` int(2) unsigned NOT NULL DEFAULT '0'," +			// グループ変更した回数
 				"`changed` int(9) unsigned NOT NULL DEFAULT '0'," +			// グループ変更した回数
 				"`lastchange` int(32) unsigned NOT NULL DEFAULT '0'," +		// 最後にグループ変更した日時
+				"`lastpaid` int(32) unsigned NOT NULL DEFAULT '0'," +		// 最後に更新料を払った日時
 				"PRIMARY KEY (`player_id`)," +
 				"UNIQUE KEY `player_name` (`player_name`)" +
 				") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");

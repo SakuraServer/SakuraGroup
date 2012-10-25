@@ -9,14 +9,17 @@ DefaultGroup: Citizen
 Groups:
   Builder:
     Cost: 5000
+    KeepCost: 3000
     ColorTag: "&b"
     Limit: 10
   Engineer:
     Cost: 5000
+    KeepCost: 3000
     ColorTag: "&6"
     Limit: 10
   Designer:
     Cost: 5000
+    KeepCost: 3000
     ColorTag: "&c"
     Limit: 10
 
