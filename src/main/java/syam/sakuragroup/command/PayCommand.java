@@ -31,11 +31,11 @@ public class PayCommand extends BaseCommand {
 		mgr = plugin.getPEXmgr();
 		String currentGroup = plugin.getPEXmgr().getCurrentGroup(player);
 		if (plugin.getConfigs().getDefGroup().equalsIgnoreCase(currentGroup)){
-			throw new CommandException("あなたはデフォルトグループメンバーです！");
+			throw new CommandException("&cあなたはデフォルトグループメンバーです！");
 		}
 		Group group = mgr.getGroup(currentGroup);
 		if (group == null){
-			throw new CommandException("あなたは特別グループに所属していません！");
+			throw new CommandException("&cあなたは特別グループに所属していません！");
 		}
 
 		// Pay cost
@@ -44,7 +44,7 @@ public class PayCommand extends BaseCommand {
 		if (plugin.getConfigs().getUseVault() && cost > 0 && !Perms.FREE_PAY.has(player)){
 			paid = Actions.takeMoney(player.getName(), cost);
 			if (!paid){
-				throw new CommandException("お金が足りません！ " + Actions.getCurrencyString(cost) + "必要です！");
+				throw new CommandException("&cお金が足りません！ " + Actions.getCurrencyString(cost) + "必要です！");
 			}
 		}
 

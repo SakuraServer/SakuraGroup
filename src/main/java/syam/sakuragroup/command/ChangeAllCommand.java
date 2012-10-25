@@ -50,7 +50,7 @@ public class ChangeAllCommand extends BaseCommand{
 			Group fromg = mgr.getGroup(args.get(0));
 			froms = (fromg != null) ? fromg.getName() : null;
 			if (froms == null){
-				throw new CommandException("変更元のグループが見つかりません！");
+				throw new CommandException("&c変更元のグループが見つかりません！");
 			}
 
 			names = mgr.getPlayersByGroup(froms); // target
@@ -66,7 +66,7 @@ public class ChangeAllCommand extends BaseCommand{
 		}
 
 		if (tos == null){
-			throw new CommandException("変更先のグループが見つかりません！");
+			throw new CommandException("&c変更先のグループが見つかりません！");
 		}
 
 
