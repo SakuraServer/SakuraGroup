@@ -47,18 +47,18 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 		// 引数が1つ グループ指定
 		if (args.size() >= 1){
 			if (!Perms.CHANGE_CMD.has(sender)){
-				throw new CommandException("コマンドから直接グループを変更する権限がありません！");
+				throw new CommandException("&cコマンドから直接グループを変更する権限がありません！");
 			}
 			update(args.get(0));
 		}
 		// 引数なし 選択チェック
 		else{
 			if (!Perms.CHANGE_SIGN.has(sender)){
-				throw new CommandException("変更するグループ名を指定してください！");
+				throw new CommandException("&c変更するグループ名を指定してください！");
 			}
 			Group group = SignManager.getSelectedGroup(player);
 			if (group == null){
-				throw new CommandException("あなたはまだグループ看板を選択していません！");
+				throw new CommandException("&cあなたはまだグループ看板を選択していません！");
 			}
 			update(group);
 		}
@@ -68,7 +68,7 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 		// 新グループ確定
 		Group group = mgr.getGroup(args.get(0));
 		if (group == null){
-			throw new CommandException("指定したグループは存在しません！");
+			throw new CommandException("&c指定したグループは存在しません！");
 		}
 
 		update(group);
@@ -92,12 +92,12 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 			// グループチェック
 			if (group.getName().equalsIgnoreCase(currentGroup)){
-				throw new CommandException("既に同じグループに所属しています！");
+				throw new CommandException("&c既に同じグループに所属しています！");
 			}
 
 			// ステータスチェック
 			if (status != 0){
-				throw new CommandException("あなたはグループの変更を禁止されています！");
+				throw new CommandException("&cあなたはグループの変更を禁止されています！");
 			}
 
 			// 時間チェック

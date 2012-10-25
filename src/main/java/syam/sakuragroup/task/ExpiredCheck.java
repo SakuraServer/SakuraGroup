@@ -63,43 +63,40 @@ public class ExpiredCheck implements Runnable{
 							threshold.intValue(), defGroup);
 
 			// Record not found
-			if (result.size() == 0){
-				running = false;
-				return;
-			}
+			int affected = 0;
+			if (result.size() > 0){
+				final PEXManager mgr = plugin.getPEXmgr();
 
-			final PEXManager mgr = plugin.getPEXmgr();
+				// Loop records
+				for (ArrayList<String> record : result.values()){
+					String pname = record.get(0);
+					String gname = record.get(1); //TODO: use this?
+					int status = Integer.valueOf(record.get(2));
 
-			// Loop records
-			int i = 0;
-			for (ArrayList<String> record : result.values()){
-				String pname = record.get(0);
-				String gname = record.get(1); //TODO: use this?
-				int status = Integer.valueOf(record.get(2));
+					// TODO: check status here?
 
-				// TODO: check status here?
+					// Update
+					db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ?, `lastpaid` = ? WHERE `player_name` = ?", defGroup, 0, pname);
 
-				// Update
-				db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ?, `lastpaid` = ? WHERE `player_name` = ?", defGroup, 0, pname);
+					// Change group
+					mgr.changeGroup(pname, defGroup, null);
 
-				// Change group
-				mgr.changeGroup(pname, defGroup, null);
+					// messaging
+					Player player = Bukkit.getPlayer(pname);
+					if (player != null && player.isOnline()){
+						Actions.broadcastMessage(msgPrefix+ "&cグループの有効期限が切れ、デフォルトグループに戻りました！");
+					}
 
-				// messaging
-				Player player = Bukkit.getPlayer(pname);
-				if (player != null && player.isOnline()){
-					Actions.broadcastMessage(msgPrefix+ "&cグループの有効期限が切れ、デフォルトグループに戻りました！");
+					Group group = mgr.getGroup(gname);
+					String gstr = (group != null) ? "&b:" + group.getColor() + group.getName() : "";
+					Actions.broadcastMessage(msgPrefix+ "&6 " + pname + gstr + " &bのグループ期限が切れました！");
+					affected++;
 				}
-
-				Group group = mgr.getGroup(gname);
-				String gstr = (group != null) ? "&b:" + group.getColor() + group.getName() : "";
-				Actions.broadcastMessage(msgPrefix+ "&6 " + pname + gstr + " &bのグループ期限が切れました！");
-				i++;
 			}
 
 			// logging
-			if (i > 0)
-				log.info(logPrefix + i +" player(s) expired the effective group! Changed to default group!");
+			if (affected > 0)
+				log.info(logPrefix + affected +" player(s) expired the effective group! Changed to default group!");
 
 			// force messaging
 			if (force){
@@ -107,12 +104,12 @@ public class ExpiredCheck implements Runnable{
 				if (senderName != null){
 					Player player = Bukkit.getPlayer(senderName);
 					if (player != null && player.isOnline()){
-						Actions.message(player, "&aチェックが終了し、" + i + "人のグループを変更しました！");
+						Actions.message(player, "&aチェックが終了し、" + affected + "人のグループを変更しました！");
 					}
 				}
 				// ConsoleSender
 				else{
-					Actions.message(Bukkit.getConsoleSender(), "&aチェックが終了し、" + i + "人のグループを変更しました！");
+					Actions.message(Bukkit.getConsoleSender(), "&aチェックが終了し、" + affected + "人のグループを変更しました！");
 				}
 			}
 
