@@ -21,6 +21,8 @@ public enum Perms {
 	CHANGE_SIGN ("user.change.sign"),
 	PAY ("user.pay"),
 	LEAVE ("user.leave"),
+	INFO_SELF ("user.info.self"),
+	INFO_OTHER ("user.info.other"),
 
 	// Admin Commands
 	RELOAD	("admin.reload"),
