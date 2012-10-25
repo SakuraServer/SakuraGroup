@@ -26,6 +26,9 @@ Groups:
 Time: 2
 Measure: WEEK
 
+# ExpiredCheckInterval (Hour)
+ExpiredCheckInterval: 3
+
 #==================#
 #   Vault Config   #
 #==================#

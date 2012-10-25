@@ -36,6 +36,7 @@ import syam.sakuragroup.listener.SignListener;
 import syam.sakuragroup.listener.SignProtectListener;
 import syam.sakuragroup.manager.PEXManager;
 import syam.sakuragroup.permission.Perms;
+import syam.sakuragroup.task.TaskHandler;
 import syam.sakuragroup.util.Metrics;
 
 /**
@@ -71,6 +72,7 @@ public class SakuraGroup extends JavaPlugin{
 
 	// ** Manager **/
 	private PEXManager pexm = null;
+	private TaskHandler taskHandler = null;
 
 
 	/**
@@ -117,6 +119,10 @@ public class SakuraGroup extends JavaPlugin{
 		database = new Database(this);
 		database.createStructure();
 
+		// Timer
+		taskHandler = TaskHandler.getInstance(this);
+		taskHandler.scheduleStart();
+
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is enabled!");
@@ -129,6 +135,9 @@ public class SakuraGroup extends JavaPlugin{
 	 */
 	@Override
 	public void onDisable(){
+		if (taskHandler != null){
+			taskHandler.scheduleStop();
+		}
 		getServer().getScheduler().cancelTasks(this);
 
 		// メッセージ表示
@@ -282,6 +291,14 @@ public class SakuraGroup extends JavaPlugin{
 	 */
 	public PEXManager getPEXmgr(){
 		return pexm;
+	}
+
+	/**
+	 * TaskHandlerを返す
+	 * @return TaskHandler
+	 */
+	public TaskHandler getTaskHandler(){
+		return taskHandler;
 	}
 
 	/**

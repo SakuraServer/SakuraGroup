@@ -40,6 +40,9 @@ public class ReloadCommand extends BaseCommand {
 		// グループ再読み込み
 		plugin.getPEXmgr().loadGroups();
 
+		// タイマー再起動
+		plugin.getTaskHandler().scheduleStart();
+
 		// テンポラリ保持データをクリア
 		SignManager.clearSelectedGroup();
 		plugin.getQueue().clearQueue();

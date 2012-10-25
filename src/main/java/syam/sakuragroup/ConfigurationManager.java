@@ -50,6 +50,7 @@ public class ConfigurationManager {
 	private List<String> groups = new ArrayList<String>();
 	private int time = 7;
 	private int measure = 0;
+	private int expiredCheckInterval = 3;
 
 	/* Vault Config */
 	private boolean useVault = false;
@@ -109,6 +110,7 @@ public class ConfigurationManager {
 
 		time = plugin.getConfig().getInt("Time");
 		String ms = plugin.getConfig().getString("Measure");
+		expiredCheckInterval = plugin.getConfig().getInt("ExpiredCheckInterval", 3);
 
 		/* Vault Configs */
 		useVault = plugin.getConfig().getBoolean("UseVault", false);
@@ -166,6 +168,9 @@ public class ConfigurationManager {
 	}
 	public int getMeasure(){
 		return this.measure;
+	}
+	public int getExpiredCheckInterval(){
+		return this.expiredCheckInterval;
 	}
 
 	/* Vault Config */

@@ -93,7 +93,7 @@ public class ExpiredCheck implements Runnable{
 
 				Group group = mgr.getGroup(gname);
 				String gstr = (group != null) ? "&b:" + group.getColor() + group.getName() : "";
-				Actions.broadcastMessage(msgPrefix+ "&bプレイヤー " + pname + gstr + " &bのグループ有効期限が切れました！");
+				Actions.broadcastMessage(msgPrefix+ "&6 " + pname + gstr + " &bのグループ期限が切れました！");
 				i++;
 			}
 
