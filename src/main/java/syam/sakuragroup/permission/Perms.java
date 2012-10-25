@@ -25,6 +25,7 @@ public enum Perms {
 	// Admin Commands
 	RELOAD	("admin.reload"),
 	CHANGE_ALL ("admin.changeall"),
+	FORCE_CHECK ("admin.forcecheck"),
 
 	// Free Perms
 	FREE_CHANGE ("free.change"),
