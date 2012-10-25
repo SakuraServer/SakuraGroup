@@ -157,9 +157,10 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 		}
 
 		// Update!
+		Long timestamp = Util.getCurrentUnixSec();
 		Database db = SakuraGroup.getDatabases();
 		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`, `lastpaid`) " +
-				"VALUES (?, ?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1,  Util.getCurrentUnixSec().intValue(), 0);
+				"VALUES (?, ?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1,  timestamp.intValue(), timestamp.intValue());
 		// Change group!
 		mgr.changeGroup(player.getName(), group.getName(), null);
 
