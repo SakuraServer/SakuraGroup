@@ -73,9 +73,9 @@ public class ChangeAllCommand extends BaseCommand{
 		/* Update Database at once */
 		Database db = SakuraGroup.getDatabases();
 		if (froms != null){
-			db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ? WHERE `group` = ?", tos, froms);
+			db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ?, `lastpaid` = 0 WHERE `group` = ?", tos, froms);
 		}else{
-			db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ?", tos);
+			db.write("UPDATE " + db.getTablePrefix() + "users SET `group` = ?, `lastpaid` = 0", tos);
 		}
 
 		/* Change Group */
@@ -95,7 +95,7 @@ public class ChangeAllCommand extends BaseCommand{
 		}else{
 			Actions.broadcastMessage(msgPrefix + "&aすべての特別グループメンバーは&6" + tos + "&aに変更されました！");
 		}
-		
+
 		Actions.message(sender, "&a" + names.size() + "人のグループを変更しました！");
 	}
 

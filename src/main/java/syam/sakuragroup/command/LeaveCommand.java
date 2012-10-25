@@ -78,8 +78,8 @@ public class LeaveCommand extends BaseCommand implements Queueable{
 		}
 
 		// Update
-		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`) " +
-				"VALUES (?, ?, ?, ?, ?)", player.getName(), defGroup, status, changed, timestamp);
+		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`, `lastpaid`) " +
+				"VALUES (?, ?, ?, ?, ?, ?)", player.getName(), defGroup, status, changed, timestamp, 0);
 
 		// Change group
 		mgr.changeGroup(player.getName(), defGroup, null);

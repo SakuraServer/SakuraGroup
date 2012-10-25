@@ -77,22 +77,18 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 		// prepare update
 		this.group = group;
 
-		//int playerID = -1;
-
-
 		// Get Database
 		Database db = SakuraGroup.getDatabases();
 		HashMap<Integer, ArrayList<String>> result =
-				db.read("SELECT `player_id`, `group`, `status`, `changed`, `lastchange` FROM " + db.getTablePrefix() + "users WHERE `player_name` = ?", player.getName());
+				db.read("SELECT `group`, `status`, `changed`, `lastchange` FROM " + db.getTablePrefix() + "users WHERE `player_name` = ?", player.getName());
 		if (result.size() > 0){
 			// 既にDB登録済み チェック
 			ArrayList<String> record = result.get(1);
 
-			//playerID = Integer.valueOf(record.get(0));
-			String currentGroup = record.get(1);
-			status = Integer.valueOf(record.get(2));
-			changed = Integer.valueOf(record.get(3));
-			Long changedTime = Long.valueOf(record.get(4));
+			String currentGroup = record.get(0);
+			status = Integer.valueOf(record.get(1));
+			changed = Integer.valueOf(record.get(2));
+			Long changedTime = Long.valueOf(record.get(3));
 
 			// グループチェック
 			if (group.getName().equalsIgnoreCase(currentGroup)){
@@ -162,8 +158,8 @@ public class ChangeCommand extends BaseCommand implements Queueable{
 
 		// Update!
 		Database db = SakuraGroup.getDatabases();
-		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`) " +
-				"VALUES (?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1,  Util.getCurrentUnixSec().intValue());
+		db.write("REPLACE INTO " + db.getTablePrefix() + "users (`player_name`, `group`, `status`, `changed`, `lastchange`, `lastpaid`) " +
+				"VALUES (?, ?, ?, ?, ?, ?)", player.getName(), group.getName(), status, changed + 1,  Util.getCurrentUnixSec().intValue(), 0);
 		// Change group!
 		mgr.changeGroup(player.getName(), group.getName(), null);
 
