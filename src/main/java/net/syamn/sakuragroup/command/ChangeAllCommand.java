@@ -12,7 +12,7 @@ import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
 
 import org.bukkit.Bukkit;
@@ -84,17 +84,17 @@ public class ChangeAllCommand extends BaseCommand {
             // Messaging
             Player player = Bukkit.getPlayer(name);
             if (player != null && player.isOnline()) {
-                Actions.message(player, msgPrefix + "&aあなたのグループは&6 " + tos + " &aに変更されました！");
+                Util.message(player, msgPrefix + "&aあなたのグループは&6 " + tos + " &aに変更されました！");
             }
         }
 
         if (froms != null) {
-            Actions.broadcastMessage(msgPrefix + "&6" + froms + "&aグループメンバーは&6" + tos + "&aに変更されました！");
+            Util.broadcastMessage(msgPrefix + "&6" + froms + "&aグループメンバーは&6" + tos + "&aに変更されました！");
         } else {
-            Actions.broadcastMessage(msgPrefix + "&aすべての特別グループメンバーは&6" + tos + "&aに変更されました！");
+            Util.broadcastMessage(msgPrefix + "&aすべての特別グループメンバーは&6" + tos + "&aに変更されました！");
         }
 
-        Actions.message(sender, "&a" + names.size() + "人のグループを変更しました！");
+        Util.message(sender, "&a" + names.size() + "人のグループを変更しました！");
     }
 
     @Override

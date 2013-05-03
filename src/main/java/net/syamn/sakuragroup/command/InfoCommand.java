@@ -12,8 +12,8 @@ import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
-import net.syamn.sakuragroup.utils.plugin.Util;
+import net.syamn.utils.TimeUtil;
+import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
 
 import org.bukkit.Bukkit;
@@ -69,7 +69,7 @@ public class InfoCommand extends BaseCommand {
                 CommandSender s = (senderName == null) ? Bukkit.getConsoleSender() : Bukkit.getPlayer(senderName);
                 if (s != null) {
                     for (String line : lines) {
-                        Actions.message(s, line);
+                        Util.message(s, line);
                     }
                 }
             }
@@ -127,8 +127,8 @@ public class InfoCommand extends BaseCommand {
         // build information
         l.add("&e所属グループ: &a" + joined + " &7(" + changed + "回変更)");
 
-        l.add("&e参加: &a" + ((def) ? none : Util.getDispTimeByUnixTime(lastchange)) + " &e更新: &a" + ((def) ? none : Util.getDispTimeByUnixTime(lastpaid)));
-        l.add("&e期限: &a" + ((def) ? none : Util.getDispTimeByUnixTime(expired)) + " &e残り時間: &a" + ((def) ? none : Util.getDiffString(Util.getCurrentUnixSec(), expired)));
+        l.add("&e参加: &a" + ((def) ? none : net.syamn.sakuragroup.utils.plugin.PUtil.getDispTimeByUnixTime(lastchange)) + " &e更新: &a" + ((def) ? none : net.syamn.sakuragroup.utils.plugin.PUtil.getDispTimeByUnixTime(lastpaid)));
+        l.add("&e期限: &a" + ((def) ? none : net.syamn.sakuragroup.utils.plugin.PUtil.getDispTimeByUnixTime(expired)) + " &e残り時間: &a" + ((def) ? none : net.syamn.sakuragroup.utils.plugin.PUtil.getDiffString(TimeUtil.getCurrentUnixSec(), expired)));
 
         return l;
     }

@@ -10,7 +10,7 @@ import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.manager.SignManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -71,13 +71,13 @@ public class SignListener implements Listener {
                     }
                 }
                 if (group == null) {
-                    Actions.message(player, msgPrefix + "&6このグループは存在しません！");
+                    Util.message(player, msgPrefix + "&6このグループは存在しません！");
                     return;
                 }
 
                 SignManager.setSelectedGroup(player, group);
-                Actions.message(player, msgPrefix + "&aグループ " + group.getColor() + group.getName() + " &aを選択しました！");
-                Actions.message(player, msgPrefix + "&6/group change &aコマンドでグループを変更します！");
+                Util.message(player, msgPrefix + "&aグループ " + group.getColor() + group.getName() + " &aを選択しました！");
+                Util.message(player, msgPrefix + "&6/group change &aコマンドでグループを変更します！");
 
                 event.setCancelled(true);
             }
@@ -100,7 +100,7 @@ public class SignListener implements Listener {
                 if (!Perms.PLACESIGN.has(player)) {
                     event.setLine(0, "§c[SakuraGroup]");
                     event.setLine(1, "Perm Denied :(");
-                    Actions.message(player, "&6You don't have permission to use this!");
+                    Util.message(player, "&6You don't have permission to use this!");
                     return;
                 }
 
@@ -116,17 +116,17 @@ public class SignListener implements Listener {
                 // 1行目の文字色
                 if (group == null) {
                     event.setLine(0, "§c[SakuraGroup]");
-                    Actions.message(player, "&cグループが見つかりません！");
+                    Util.message(player, "&cグループが見つかりません！");
                 } else {
                     if (group.getName().length() > 15) {
                         event.setLine(0, "§c[SakuraGroup]");
-                        Actions.message(player, "&cグループ名が15文字を超えているため看板にできません！");
+                        Util.message(player, "&cグループ名が15文字を超えているため看板にできません！");
                         return;
                     }
                     event.setLine(0, "§a[SakuraGroup]");
                     event.setLine(1, group.getName());
 
-                    Actions.message(player, "&aグループ変更看板を設置しました！");
+                    Util.message(player, "&aグループ変更看板を設置しました！");
                 }
             }
         }

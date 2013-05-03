@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.syamn.sakuragroup.SakuraGroup;
-import net.syamn.sakuragroup.command.queue.Queueable;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
+import net.syamn.utils.queue.ConfirmQueue;
+import net.syamn.utils.queue.Queueable;
+import net.syamn.utils.queue.QueuedCommand;
 
 /**
  * LeaveCommand (LeaveCommand.java)
@@ -36,20 +38,20 @@ public class LeaveCommand extends BaseCommand implements Queueable {
             throw new CommandException("あなたは既にデフォルトグループメンバーです！");
         }
 
-        plugin.getQueue().addQueue(sender, this, args, 15);
-        Actions.message(sender, "&dデフォルトグループに戻ろうとしています！");
-        Actions.message(sender, "&dこの操作は取り消しすることができません。本当に続行しますか？");
-        Actions.message(sender, "&d続行するには &a/group confirm &dコマンドを入力してください！");
-        Actions.message(sender, "&a/group confirm &dコマンドは15秒間のみ有効です。");
+        ConfirmQueue.getInstance().addQueue(sender, this, null, 15);
+        Util.message(sender, "&dデフォルトグループに戻ろうとしています！");
+        Util.message(sender, "&dこの操作は取り消しすることができません。本当に続行しますか？");
+        Util.message(sender, "&d続行するには &a/group confirm &dコマンドを入力してください！");
+        Util.message(sender, "&a/group confirm &dコマンドは15秒間のみ有効です。");
     }
 
     @Override
-    public void executeQueue(List<String> qArgs) {
+    public void executeQueue(QueuedCommand queued) {
         PEXManager mgr = plugin.getPEXmgr();
         final String defGroup = plugin.getConfigs().getDefGroup();
 
         if (defGroup.equalsIgnoreCase(plugin.getPEXmgr().getCurrentGroup(player))) {
-            Actions.message(player, "&cあなたは既にデフォルトグループメンバーです！");
+            Util.message(player, "&cあなたは既にデフォルトグループメンバーです！");
             return;
         }
 
@@ -71,7 +73,7 @@ public class LeaveCommand extends BaseCommand implements Queueable {
 
             // ステータスチェック
             if (status != 0) {
-                Actions.message(player, "&cあなたはグループの変更を禁止されています！");
+                Util.message(player, "&cあなたはグループの変更を禁止されています！");
                 return;
             }
         }
@@ -83,7 +85,7 @@ public class LeaveCommand extends BaseCommand implements Queueable {
         mgr.changeGroup(player.getName(), defGroup, null);
 
         // messaging
-        Actions.broadcastMessage(msgPrefix + "&6" + player.getName() + "&aさんがデフォルトグループに戻りました！");
+        Util.broadcastMessage(msgPrefix + "&6" + player.getName() + "&aさんがデフォルトグループに戻りました！");
     }
 
     @Override

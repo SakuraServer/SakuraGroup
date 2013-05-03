@@ -7,7 +7,8 @@ package net.syamn.sakuragroup.command;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.manager.SignManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
+import net.syamn.utils.queue.ConfirmQueue;
 
 /**
  * ReloadCommand (ReloadCommand.java)
@@ -46,9 +47,9 @@ public class ReloadCommand extends BaseCommand {
 
         // テンポラリ保持データをクリア
         SignManager.clearSelectedGroup();
-        plugin.getQueue().clearQueue();
+        //ConfirmQueue.getInstance().clearQueue();
 
-        Actions.message(sender, "&aConfiguration reloaded!");
+        Util.message(sender, "&aConfiguration reloaded!");
     }
 
     @Override

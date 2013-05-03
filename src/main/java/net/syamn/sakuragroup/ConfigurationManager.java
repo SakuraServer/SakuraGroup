@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
-import net.syamn.sakuragroup.utils.plugin.Util;
+import net.syamn.sakuragroup.utils.plugin.PUtil;
 
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -140,7 +140,7 @@ public class ConfigurationManager {
         }
 
         // convert measure
-        measure = Util.getMeasure(ms);
+        measure = PUtil.getMeasure(ms);
         if (measure == -1) {
             log.warning(logPrefix + "Time measure NOT defined properly! Use default: DAY");
             measure = Calendar.DAY_OF_MONTH;

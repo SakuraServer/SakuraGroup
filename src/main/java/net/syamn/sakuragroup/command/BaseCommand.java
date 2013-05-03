@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.SakuraGroup;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
 
 import org.bukkit.command.CommandSender;
@@ -59,7 +59,7 @@ public abstract class BaseCommand {
 
         // 実行にプレイヤーであることが必要かチェックする
         if (bePlayer && !(sender instanceof Player)) {
-            Actions.message(sender, "&cThis command cannot run from Console!");
+            Util.message(sender, "&cThis command cannot run from Console!");
             return true;
         }
         if (sender instanceof Player) {
@@ -68,7 +68,7 @@ public abstract class BaseCommand {
 
         // 権限チェック
         if (!permission()) {
-            Actions.message(sender, "&cYou don't have permission to use this!");
+            Util.message(sender, "&cYou don't have permission to use this!");
             return true;
         }
 
@@ -78,7 +78,7 @@ public abstract class BaseCommand {
         } catch (CommandException ex) {
             Throwable error = ex;
             while (error instanceof CommandException) {
-                Actions.message(sender, error.getMessage());
+                Util.message(sender, error.getMessage());
                 error = error.getCause();
             }
         }
@@ -106,6 +106,6 @@ public abstract class BaseCommand {
      * コマンドの使い方を送信する
      */
     public void sendUsage() {
-        Actions.message(sender, "&c/" + this.command + " " + name + " " + usage);
+        Util.message(sender, "&c/" + this.command + " " + name + " " + usage);
     }
 }

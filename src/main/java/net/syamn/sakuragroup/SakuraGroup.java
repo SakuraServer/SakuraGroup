@@ -21,14 +21,16 @@ import net.syamn.sakuragroup.command.LeaveCommand;
 import net.syamn.sakuragroup.command.ListCommand;
 import net.syamn.sakuragroup.command.PayCommand;
 import net.syamn.sakuragroup.command.ReloadCommand;
-import net.syamn.sakuragroup.command.queue.ConfirmQueue;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.listener.SignListener;
 import net.syamn.sakuragroup.listener.SignProtectListener;
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
 import net.syamn.sakuragroup.task.TaskHandler;
-import net.syamn.sakuragroup.utils.plugin.Metrics;
+import net.syamn.utils.LogUtil;
+import net.syamn.utils.Metrics;
+import net.syamn.utils.SakuraLib;
+import net.syamn.utils.economy.EconomyUtil;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -58,7 +60,6 @@ public class SakuraGroup extends JavaPlugin {
 
     // ** Private Classes **
     private ConfigurationManager config;
-    private ConfirmQueue queue;
 
     // ** Static Variable **
     private static Database database;
@@ -80,6 +81,8 @@ public class SakuraGroup extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        LogUtil.init(this);
+        
         PluginManager pm = getServer().getPluginManager();
         config = new ConfigurationManager(this);
 
@@ -112,7 +115,6 @@ public class SakuraGroup extends JavaPlugin {
 
         // コマンド登録
         registerCommands();
-        queue = new ConfirmQueue(this);
 
         // データベース接続
         database = new Database(this);
@@ -170,35 +172,19 @@ public class SakuraGroup extends JavaPlugin {
      */
     public boolean setupVault() {
         Plugin plugin = this.getServer().getPluginManager().getPlugin("Vault");
-        if (plugin != null & plugin instanceof Vault) {
-            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-            // 経済概念のプラグインがロードされているかチェック
-            if (economyProvider == null) {
-                log.warning(logPrefix + "Economy plugin NOT found. Disabled Vault plugin integration.");
-                return false;
+        if (plugin != null && plugin instanceof Vault) {
+            RegisteredServiceProvider<Economy> econProv = this.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            if (econProv != null){
+                SakuraLib.setEconomy(econProv.getProvider());
+                LogUtil.info("Enabled economy hookup! Using Vault (" + EconomyUtil.getEconomyName() + ") for economy plugin!");
+                return true;
+            }else{
+                LogUtil.warning("Could not hook to economy plugin!");
             }
-
-            try {
-                vault = (Vault) plugin;
-                economy = economyProvider.getProvider();
-
-                if (vault == null || economy == null) {
-                    throw new NullPointerException();
-                }
-            } // 例外チェック
-            catch (Exception e) {
-                log.warning(logPrefix + "Could NOT be hook to Vault plugin. Disabled Vault plugin integration.");
-                return false;
-            }
-
-            // Success
-            log.info(logPrefix + "Hooked to Vault plugin!");
-            return true;
-        } else {
-            // Vaultが見つからなかった
-            log.warning(logPrefix + "Vault plugin was NOT found! Disabled Vault integration.");
-            return false;
+        }else{
+            LogUtil.warning("Vault plugin was NOT found! Disabled Vault integration.");
         }
+        return false;
     }
 
     /**
@@ -206,7 +192,7 @@ public class SakuraGroup extends JavaPlugin {
      */
     private void setupMetrics() {
         try {
-            Metrics metrics = new Metrics(this);
+            Metrics metrics = new net.syamn.utils.Metrics(this);
             metrics.start();
         } catch (IOException ex) {
             log.warning(logPrefix + "cant send metrics data!");
@@ -251,16 +237,7 @@ public class SakuraGroup extends JavaPlugin {
     public List<BaseCommand> getCommands() {
         return commands;
     }
-
-    /**
-     * Confirmコマンドキューを返す
-     * 
-     * @return ConfirmQueue
-     */
-    public ConfirmQueue getQueue() {
-        return queue;
-    }
-
+    
     /**
      * Vaultを返す
      * 

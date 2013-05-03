@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -70,7 +70,7 @@ public class PEXManager {
         PermissionsEx.getUser(name).setGroups(setGroup);
 
         if (sender != null) {
-            Actions.message(sender, "&6" + name + " &aを&6" + group.getName() + "&aに変更しました！");
+            Util.message(sender, "&6" + name + " &aを&6" + group.getName() + "&aに変更しました！");
         }
 
         return true;

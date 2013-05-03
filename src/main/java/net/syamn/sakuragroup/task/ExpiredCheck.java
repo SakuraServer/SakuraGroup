@@ -12,8 +12,8 @@ import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
-import net.syamn.sakuragroup.utils.plugin.Actions;
-import net.syamn.sakuragroup.utils.plugin.Util;
+import net.syamn.utils.TimeUtil;
+import net.syamn.utils.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -55,7 +55,7 @@ public class ExpiredCheck implements Runnable {
         running = true;
 
         try {
-            final Long threshold = Util.getCurrentUnixSec() - EXPIRED_TIME;
+            final Long threshold = TimeUtil.getCurrentUnixSec() - EXPIRED_TIME;
             final String defGroup = plugin.getConfigs().getDefGroup();
 
             // Get Database
@@ -84,12 +84,12 @@ public class ExpiredCheck implements Runnable {
                     // messaging
                     Player player = Bukkit.getPlayer(pname);
                     if (player != null && player.isOnline()) {
-                        Actions.broadcastMessage(msgPrefix + "&cグループの有効期限が切れ、デフォルトグループに戻りました！");
+                        Util.broadcastMessage(msgPrefix + "&cグループの有効期限が切れ、デフォルトグループに戻りました！");
                     }
 
                     Group group = mgr.getGroup(gname);
                     String gstr = (group != null) ? "&b:" + group.getColor() + group.getName() : "";
-                    Actions.broadcastMessage(msgPrefix + "&6 " + pname + gstr + " &bのグループ期限が切れました！");
+                    Util.broadcastMessage(msgPrefix + "&6 " + pname + gstr + " &bのグループ期限が切れました！");
                     affected++;
                 }
             }
@@ -103,12 +103,12 @@ public class ExpiredCheck implements Runnable {
                 if (senderName != null) {
                     Player player = Bukkit.getPlayer(senderName);
                     if (player != null && player.isOnline()) {
-                        Actions.message(player, "&aチェックが終了し、" + affected + "人のグループを変更しました！");
+                        Util.message(player, "&aチェックが終了し、" + affected + "人のグループを変更しました！");
                     }
                 }
                 // ConsoleSender
                 else {
-                    Actions.message(Bukkit.getConsoleSender(), "&aチェックが終了し、" + affected + "人のグループを変更しました！");
+                    Util.message(Bukkit.getConsoleSender(), "&aチェックが終了し、" + affected + "人のグループを変更しました！");
                 }
             }
 

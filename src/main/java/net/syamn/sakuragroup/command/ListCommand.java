@@ -10,8 +10,8 @@ import java.util.Set;
 
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.utils.plugin.Actions;
-import net.syamn.sakuragroup.utils.plugin.Util;
+import net.syamn.utils.StrUtil;
+import net.syamn.utils.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -48,7 +48,7 @@ public class ListCommand extends BaseCommand {
                     Set<String> names = mgr.getPlayersByGroup(name);
                     msg.add("&b ** &e" + name + "&7: &6" + names.size() + "人" + limitStr);
                     if (names.size() > 0) {
-                        msg.add(Util.join(names, "&7,&f "));
+                        msg.add(StrUtil.join(names, "&7,&f "));
                     } else {
                         msg.add("&7(このグループに所属している人はいません)");
                     }
@@ -58,7 +58,7 @@ public class ListCommand extends BaseCommand {
                 CommandSender s = (senderName == null) ? Bukkit.getConsoleSender() : Bukkit.getPlayer(senderName);
                 if (s != null) {
                     for (String line : msg) {
-                        Actions.message(s, line);
+                        Util.message(s, line);
                     }
                 }
             }

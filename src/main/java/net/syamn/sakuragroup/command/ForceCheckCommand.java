@@ -6,7 +6,7 @@ package net.syamn.sakuragroup.command;
 
 import net.syamn.sakuragroup.permission.Perms;
 import net.syamn.sakuragroup.task.ExpiredCheck;
-import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
 
 /**
@@ -32,7 +32,7 @@ public class ForceCheckCommand extends BaseCommand {
         // checkTask.start();
         plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ExpiredCheck(plugin, sender), 0L);
 
-        Actions.message(sender, "&aチェックを開始しました");
+        Util.message(sender, "&aチェックを開始しました");
     }
 
     @Override

@@ -5,6 +5,7 @@
 package net.syamn.sakuragroup.command;
 
 import net.syamn.utils.exception.CommandException;
+import net.syamn.utils.queue.ConfirmQueue;
 
 /**
  * ConfirmCommand (ConfirmCommand.java)
@@ -21,7 +22,7 @@ public class ConfirmCommand extends BaseCommand {
 
     @Override
     public void execute() throws CommandException {
-        boolean ran = this.plugin.getQueue().confirmQueue(sender);
+        boolean ran = ConfirmQueue.getInstance().confirmQueue(sender);
         if (!ran) {
             throw new CommandException("&cあなたの実行待ちコマンドはありません！");
         }
