@@ -10,10 +10,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
+import net.syamn.utils.LogUtil;
 import net.syamn.utils.Util;
 
 import org.bukkit.command.CommandSender;
@@ -31,9 +31,6 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
  * @author syam(syamn)
  */
 public class PEXManager {
-    // Logger
-    private static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     // PEX
@@ -101,7 +98,7 @@ public class PEXManager {
 
         // Check default group
         if (!pexgroups.contains(plugin.getConfigs().getDefGroup())) {
-            log.severe(logPrefix + "Default group " + plugin.getConfigs().getDefGroup() + " is NOT found! Disabling plugin..");
+            LogUtil.severe("Default group " + plugin.getConfigs().getDefGroup() + " is NOT found! Disabling plugin..");
             plugin.getPluginLoader().disablePlugin(plugin);
             return;
         }
@@ -111,7 +108,7 @@ public class PEXManager {
         for (String name : plugin.getConfigs().getGroups()) {
             // check exists
             if (!pexgroups.contains(name)) {
-                log.warning(logPrefix + "Group NOT exist! Disabled group: " + name);
+                LogUtil.warning( "Group NOT exist! Disabled group: " + name);
                 continue;
             }
 
@@ -186,14 +183,14 @@ public class PEXManager {
             pex = (PermissionsEx) pexTest;
             pm = PermissionsEx.getPermissionManager();
         } catch (Exception ex) {
-            log.warning(logPrefix + "PermissionsEx plugin NOT found. Disabling plugin..");
+            LogUtil.warning("PermissionsEx plugin NOT found. Disabling plugin..");
             ex.printStackTrace();
             plugin.getPluginLoader().disablePlugin(plugin);
             return false;
         }
 
         // Success
-        log.info(logPrefix + "Hooked to PermissionsEx plugin!");
+        LogUtil.info("Hooked to PermissionsEx plugin!");
         return true;
     }
 }

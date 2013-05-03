@@ -6,12 +6,12 @@ package net.syamn.sakuragroup.task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
+import net.syamn.utils.LogUtil;
 import net.syamn.utils.TimeUtil;
 import net.syamn.utils.Util;
 
@@ -25,9 +25,6 @@ import org.bukkit.entity.Player;
  * @author syam(syamn)
  */
 public class ExpiredCheck implements Runnable {
-    // Logger
-    public static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     private static boolean running = false;
@@ -95,7 +92,7 @@ public class ExpiredCheck implements Runnable {
             }
 
             // logging
-            if (affected > 0) log.info(logPrefix + affected + " player(s) expired the effective group! Changed to default group!");
+            if (affected > 0) LogUtil.info(affected + " player(s) expired the effective group! Changed to default group!");
 
             // force messaging
             if (force) {

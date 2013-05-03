@@ -4,9 +4,10 @@
  */
 package net.syamn.sakuragroup.task;
 
-import java.util.logging.Logger;
-
 import net.syamn.sakuragroup.SakuraGroup;
+import net.syamn.utils.LogUtil;
+
+import org.bukkit.Bukkit;
 
 /**
  * TimerHandler (TaskHandler.java)
@@ -14,9 +15,6 @@ import net.syamn.sakuragroup.SakuraGroup;
  * @author syam(syamn)
  */
 public class TaskHandler {
-    // Logger
-    public static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     // Task IDs
@@ -37,12 +35,12 @@ public class TaskHandler {
         // ExpiredCheck
         final int intervalHour = plugin.getConfigs().getExpiredCheckInterval();
         final int interval = 20 * 60 * 60 * intervalHour;
-        expiredTask = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new ExpiredCheck(plugin), interval, interval);
+        expiredTask = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new ExpiredCheck(plugin), interval, interval).getTaskId();
         if (expiredTask == -1) {
-            log.severe(logPrefix + "ExpiredCheck task scheduling failed!");
+            LogUtil.severe("ExpiredCheck task scheduling failed!");
             success = false;
         } else {
-            log.info(logPrefix + "ExpiredCheck scheduled every " + intervalHour + " hour(s)!");
+            LogUtil.info("ExpiredCheck scheduled every " + intervalHour + " hour(s)!");
         }
 
         // TODO: other tasks here..

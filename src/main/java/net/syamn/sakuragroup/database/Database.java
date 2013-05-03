@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.SakuraGroup;
+import net.syamn.utils.LogUtil;
 
 /**
  * Database (Database.java)
@@ -22,11 +22,6 @@ import net.syamn.sakuragroup.SakuraGroup;
  * @author syam(syamn)
  */
 public class Database {
-    // Logger
-    public static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
-    private static final String msgPrefix = SakuraGroup.msgPrefix;
-
     private static SakuraGroup plugin;
 
     private static String connectionString = null;
@@ -54,9 +49,9 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver");
             DriverManager.getConnection(connectionString);
         } catch (ClassNotFoundException ex1) {
-            log.severe(ex1.getLocalizedMessage());
+            LogUtil.severe(ex1.getLocalizedMessage());
         } catch (SQLException ex2) {
-            log.severe(ex2.getLocalizedMessage());
+            LogUtil.severe(ex2.getLocalizedMessage());
             printErrors(ex2);
         }
     }
@@ -66,16 +61,16 @@ public class Database {
      */
     public static void connect() {
         try {
-            log.info(logPrefix + "Attempting connection to MySQL..");
+            LogUtil.info("Attempting connection to MySQL..");
 
             Properties connectionProperties = new Properties();
             connectionProperties.put("autoReconnect", "false");
             connectionProperties.put("maxReconnects", "0");
             connection = DriverManager.getConnection(connectionString, connectionProperties);
 
-            log.info(logPrefix + "Connected MySQL database!");
+            LogUtil.info("Connected MySQL database!");
         } catch (SQLException ex) {
-            log.severe(logPrefix + "Could not connect MySQL database!");
+            LogUtil.severe("Could not connect MySQL database!");
             ex.printStackTrace();
             printErrors(ex);
         }
@@ -347,7 +342,7 @@ public class Database {
 
         if (reconnectTimestamp + RECONNECT_WAIT_TICKS < System.currentTimeMillis()) {
             reconnectTimestamp = System.currentTimeMillis();
-            log.severe(logPrefix + "Conection to MySQL was lost! Attempting to reconnect 60 seconds...");
+            LogUtil.severe("Conection to MySQL was lost! Attempting to reconnect 60 seconds...");
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new MySQLReconnect(plugin), RECONNECT_DELAY_TICKS);
         }
     }
@@ -358,11 +353,11 @@ public class Database {
      * @param ex
      */
     private static void printErrors(SQLException ex) {
-        log.warning("SQLException:" + ex.getMessage());
-        log.warning("SQLState:" + ex.getSQLState());
-        log.warning("ErrorCode:" + ex.getErrorCode());
+        LogUtil.warning("SQLException:" + ex.getMessage());
+        LogUtil.warning("SQLState:" + ex.getSQLState());
+        LogUtil.warning("ErrorCode:" + ex.getErrorCode());
 
-        log.warning("Stack Trace:");
+        LogUtil.warning("Stack Trace:");
         ex.printStackTrace();
     }
 }

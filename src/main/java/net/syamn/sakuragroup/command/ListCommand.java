@@ -34,7 +34,7 @@ public class ListCommand extends BaseCommand {
     public void execute() {
         final String senderName = (sender instanceof Player) ? sender.getName() : null;
 
-        plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             @Override
             public void run() {
                 final PEXManager mgr = plugin.getPEXmgr();
@@ -62,7 +62,7 @@ public class ListCommand extends BaseCommand {
                     }
                 }
             }
-        }, 0L);
+        });
     }
 
     @Override

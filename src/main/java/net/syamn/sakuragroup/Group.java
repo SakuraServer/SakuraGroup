@@ -3,7 +3,6 @@
  */
 package net.syamn.sakuragroup;
 
-import java.util.logging.Logger;
 
 /**
  * Group (Group.java)
@@ -11,9 +10,6 @@ import java.util.logging.Logger;
  * @author syam(syamn)
  */
 public class Group {
-    // Logger
-    private static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     private String groupName; // グループ名

@@ -7,8 +7,8 @@ package net.syamn.sakuragroup.command;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.manager.SignManager;
 import net.syamn.sakuragroup.permission.Perms;
+import net.syamn.utils.LogUtil;
 import net.syamn.utils.Util;
-import net.syamn.utils.queue.ConfirmQueue;
 
 /**
  * ReloadCommand (ReloadCommand.java)
@@ -28,7 +28,7 @@ public class ReloadCommand extends BaseCommand {
         try {
             plugin.getConfigs().loadConfig(false);
         } catch (Exception ex) {
-            log.warning(logPrefix + "an error occured while trying to load the config file.");
+            LogUtil.warning("an error occured while trying to load the config file.");
             ex.printStackTrace();
             return;
         }

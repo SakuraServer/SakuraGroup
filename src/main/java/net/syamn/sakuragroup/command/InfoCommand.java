@@ -60,9 +60,8 @@ public class InfoCommand extends BaseCommand {
         final String name = (other) ? args.get(0).trim() : player.getName();
 
         // running another thread
-        plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+            @Override public void run() {
                 List<String> lines = buildStrings(name, other);
 
                 // send messages
@@ -73,7 +72,7 @@ public class InfoCommand extends BaseCommand {
                     }
                 }
             }
-        }, 0L);
+        });
     }
 
     private List<String> buildStrings(final String name, final boolean other) {

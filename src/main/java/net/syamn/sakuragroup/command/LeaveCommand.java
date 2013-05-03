@@ -6,7 +6,6 @@ package net.syamn.sakuragroup.command;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;

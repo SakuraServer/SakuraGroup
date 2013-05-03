@@ -9,6 +9,8 @@ import net.syamn.sakuragroup.task.ExpiredCheck;
 import net.syamn.utils.Util;
 import net.syamn.utils.exception.CommandException;
 
+import org.bukkit.Bukkit;
+
 /**
  * ForceCheckCommand (ForceCheckCommand.java)
  * 
@@ -28,10 +30,8 @@ public class ForceCheckCommand extends BaseCommand {
             throw new CommandException("&c既にチェックタスクが起動しています！");
         }
 
-        // Thread checkTask = new Thread(new ExpiredCheck(plugin, sender));
-        // checkTask.start();
-        plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new ExpiredCheck(plugin, sender), 0L);
-
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new ExpiredCheck(plugin, sender));
+        
         Util.message(sender, "&aチェックを開始しました");
     }
 

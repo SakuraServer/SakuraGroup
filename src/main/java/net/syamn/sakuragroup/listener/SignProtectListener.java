@@ -4,8 +4,6 @@
  */
 package net.syamn.sakuragroup.listener;
 
-import java.util.logging.Logger;
-
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.permission.Perms;
 
@@ -31,8 +29,6 @@ import org.bukkit.event.entity.EntityExplodeEvent;
  * @author syam(syamn)
  */
 public class SignProtectListener implements Listener {
-    public final static Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     private final SakuraGroup plugin;

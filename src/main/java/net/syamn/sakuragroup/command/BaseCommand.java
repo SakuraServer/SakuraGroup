@@ -6,7 +6,6 @@ package net.syamn.sakuragroup.command;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.utils.Util;
@@ -21,9 +20,6 @@ import org.bukkit.entity.Player;
  * @author syam(syamn)
  */
 public abstract class BaseCommand {
-    // Logger
-    protected static final Logger log = SakuraGroup.log;
-    protected static final String logPrefix = SakuraGroup.logPrefix;
     protected static final String msgPrefix = SakuraGroup.msgPrefix;
     /* コマンド関係 */
     public CommandSender sender;

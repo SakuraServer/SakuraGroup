@@ -6,7 +6,6 @@ package net.syamn.sakuragroup;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.economy.Economy;
@@ -46,9 +45,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author syam(syamn)
  */
 public class SakuraGroup extends JavaPlugin {
-    // ** Logger **
-    public final static Logger log = Logger.getLogger("Minecraft");
-    public final static String logPrefix = "[SakuraGroup] ";
+    // ** Log prefix **
     public final static String msgPrefix = "&c[SakuraGroup] &f";
 
     // ** Listener **
@@ -90,7 +87,7 @@ public class SakuraGroup extends JavaPlugin {
         try {
             config.loadConfig(true);
         } catch (Exception ex) {
-            log.warning(logPrefix + "an error occured while trying to load the config file.");
+            LogUtil.warning("an error occured while trying to load the config file.");
             ex.printStackTrace();
         }
 
@@ -126,7 +123,7 @@ public class SakuraGroup extends JavaPlugin {
 
         // メッセージ表示
         PluginDescriptionFile pdfFile = this.getDescription();
-        log.info("[" + pdfFile.getName() + "] version " + pdfFile.getVersion() + " is enabled!");
+        LogUtil.info("[" + pdfFile.getName() + "] version " + pdfFile.getVersion() + " is enabled!");
 
         setupMetrics(); // mcstats
     }
@@ -143,7 +140,7 @@ public class SakuraGroup extends JavaPlugin {
 
         // メッセージ表示
         PluginDescriptionFile pdfFile = this.getDescription();
-        log.info("[" + pdfFile.getName() + "] version " + pdfFile.getVersion() + " is disabled!");
+        LogUtil.info("[" + pdfFile.getName() + "] version " + pdfFile.getVersion() + " is disabled!");
     }
 
     /**
@@ -195,7 +192,7 @@ public class SakuraGroup extends JavaPlugin {
             Metrics metrics = new net.syamn.utils.Metrics(this);
             metrics.start();
         } catch (IOException ex) {
-            log.warning(logPrefix + "cant send metrics data!");
+            LogUtil.warning("cant send metrics data!");
             ex.printStackTrace();
         }
     }

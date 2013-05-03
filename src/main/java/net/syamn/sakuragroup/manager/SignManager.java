@@ -6,7 +6,6 @@ package net.syamn.sakuragroup.manager;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
@@ -19,13 +18,7 @@ import org.bukkit.entity.Player;
  * @author syam(syamn)
  */
 public class SignManager {
-    // Logger
-    private static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
-    private static final String msgPrefix = SakuraGroup.msgPrefix;
-
     private final SakuraGroup plugin;
-
     public SignManager(final SakuraGroup plugin) {
         this.plugin = plugin;
     }

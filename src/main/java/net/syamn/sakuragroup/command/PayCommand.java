@@ -4,8 +4,6 @@
  */
 package net.syamn.sakuragroup.command;
 
-import java.util.List;
-
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;

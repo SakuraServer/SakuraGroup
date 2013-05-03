@@ -4,8 +4,6 @@
  */
 package net.syamn.sakuragroup.listener;
 
-import java.util.logging.Logger;
-
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.manager.SignManager;
@@ -30,8 +28,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * @author syam(syamn)
  */
 public class SignListener implements Listener {
-    public final static Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     private final SakuraGroup plugin;

@@ -4,10 +4,9 @@
  */
 package net.syamn.sakuragroup.permission;
 
-import java.util.logging.Logger;
-
 import net.milkbowl.vault.permission.Permission;
 import net.syamn.sakuragroup.SakuraGroup;
+import net.syamn.utils.LogUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -35,8 +34,6 @@ public class PermissionHandler {
     }
 
     // Logger
-    private static final Logger log = SakuraGroup.log;
-    private static final String logPrefix = SakuraGroup.logPrefix;
     private static final String msgPrefix = SakuraGroup.msgPrefix;
 
     // シングルトンインスタンス
@@ -90,13 +87,13 @@ public class PermissionHandler {
         if (usePermType == null) {
             usePermType = PermType.SUPERPERMS;
             if (message) {
-                log.warning(logPrefix + "Valid permissions name not selected! Using SuperPerms for permissions.");
+                LogUtil.warning("Valid permissions name not selected! Using SuperPerms for permissions.");
             }
         }
 
         // メッセージ送信
         if (message) {
-            log.info(logPrefix + "Using " + getUsePermTypeString() + " for permissions");
+            LogUtil.info("Using " + getUsePermTypeString() + " for permissions");
         }
     }
 
@@ -142,7 +139,7 @@ public class PermissionHandler {
 
                 // Other Types, forgot add here
             default:
-                log.warning(logPrefix + "Plugin author forgot add to integration to this permission plugin! Please report this!");
+                LogUtil.warning("Plugin author forgot add to integration to this permission plugin! Please report this!");
                 return false;
         }
     }
@@ -191,7 +188,7 @@ public class PermissionHandler {
             }
             // Other Types, forgot add here
             default:
-                log.warning(logPrefix + "Plugin author forgot add to integration to this permission plugin! Please report this!");
+                LogUtil.warning("Plugin author forgot add to integration to this permission plugin! Please report this!");
                 return false;
         }
     }
@@ -237,7 +234,7 @@ public class PermissionHandler {
             }
             // Other Types, forgot add here
             default:
-                log.warning(logPrefix + "Plugin author forgot add to integration to this permission plugin! Please report this!");
+                LogUtil.warning("Plugin author forgot add to integration to this permission plugin! Please report this!");
                 return null;
         }
     }
@@ -285,7 +282,7 @@ public class PermissionHandler {
                 vaultPermission = permissionProvider.getProvider();
             }
         } catch (Exception ex) {
-            log.warning(logPrefix + "Unexpected error trying to setup Vault permissions!");
+            LogUtil.warning("Unexpected error trying to setup Vault permissions!");
             ex.printStackTrace();
         }
 
@@ -304,7 +301,7 @@ public class PermissionHandler {
         try {
             pex = (PermissionsEx) testPex;
         } catch (Exception ex) {
-            log.warning(logPrefix + "Unexpected error trying to setup PEX permissions!");
+            LogUtil.warning("Unexpected error trying to setup PEX permissions!");
             ex.printStackTrace();
         }
 

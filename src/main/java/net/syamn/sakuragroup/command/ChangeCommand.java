@@ -15,6 +15,7 @@ import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.manager.SignManager;
 import net.syamn.sakuragroup.permission.Perms;
+import net.syamn.utils.LogUtil;
 import net.syamn.utils.TimeUtil;
 import net.syamn.utils.Util;
 import net.syamn.utils.economy.EconomyUtil;
@@ -120,7 +121,7 @@ public class ChangeCommand extends BaseCommand implements Queueable {
         // Put variables
         this.cost = plugin.getConfigs().getGroupCost(group.getName());
         if (plugin.getConfigs().getUseVault() && cost < 0) {
-            log.warning(logPrefix + "Group " + group.getName() + " cost config NOT exist or negative value! Change to 0.");
+            LogUtil.warning("Group " + group.getName() + " cost config NOT exist or negative value! Change to 0.");
             cost = 0.0D;
         }
 
