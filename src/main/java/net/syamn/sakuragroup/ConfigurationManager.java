@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
-import net.syamn.sakuragroup.util.Util;
+import net.syamn.sakuragroup.utils.plugin.Util;
 
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;

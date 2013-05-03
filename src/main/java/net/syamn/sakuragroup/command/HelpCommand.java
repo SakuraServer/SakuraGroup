@@ -4,7 +4,7 @@
  */
 package net.syamn.sakuragroup.command;
 
-import net.syamn.sakuragroup.util.Actions;
+import net.syamn.sakuragroup.utils.plugin.Actions;
 
 
 /**

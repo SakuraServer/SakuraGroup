@@ -29,7 +29,7 @@ import net.syamn.sakuragroup.listener.SignProtectListener;
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
 import net.syamn.sakuragroup.task.TaskHandler;
-import net.syamn.sakuragroup.util.Metrics;
+import net.syamn.sakuragroup.utils.plugin.Metrics;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

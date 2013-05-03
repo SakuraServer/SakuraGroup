@@ -1,8 +1,8 @@
 /**
- * SakuraGroup - Package: net.syamn.sakuragroup.util
+ * SakuraGroup - Package: net.syamn.sakuragroup.utils.plugin
  * Created: 2012/10/16 3:16:38
  */
-package net.syamn.sakuragroup.util;
+package net.syamn.sakuragroup.utils.plugin;
 
 import java.io.BufferedReader;
 import java.io.File;

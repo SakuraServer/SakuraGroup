@@ -130,6 +130,45 @@
                   </execution>
               </executions>
           </plugin>
+          <!--  Compiler -->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.0</version>
+              <configuration>
+                  <source>1.7</source>
+                  <target>1.7</target>
+              </configuration>
+          </plugin>
+          <!-- Maven Shade -->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-shade-plugin</artifactId>
+                  <version>1.6</version>
+                  <executions>
+                      <execution>
+                          <phase>package</phase>
+                          <goals>
+                              <goal>shade</goal>
+                          </goals>
+                          <configuration>
+                              <minimizeJar>true</minimizeJar>
+                              <filters>
+                                  <filter>
+                                      <artifact>net.syamn:syamn-lib</artifact>
+                                      <includes><include>**</include></includes>
+                                  </filter>
+                              </filters>
+                              <relocations>
+                                  <relocation>
+                                      <pattern>net.syamn.utils</pattern>
+                                      <shadedPattern>net.syamn.sakuragroup.utils</shadedPattern>
+                                  </relocation>
+                              </relocations>
+                          </configuration>
+                      </execution>
+                  </executions>
+          </plugin>
       </plugins>
 
       <!-- Resources -->
@@ -177,6 +216,11 @@
           <id>spout-repo</id>
           <url>http://nexus.spout.org/content/groups/public/</url>
       </repository>
+      <!-- Sakura -->
+      <repository>
+          <id>Sakura Server</id>
+          <url>http://ci.sakura-server.net/plugin/repository/everything/</url>
+      </repository>
   </repositories>
 
   <!-- Dependencies -->
@@ -185,15 +229,21 @@
       <dependency>
           <groupId>org.bukkit</groupId>
           <artifactId>bukkit</artifactId>
-          <version>1.4.6-R0.1-SNAPSHOT</version>
+          <version>1.5.2-R0.1-SNAPSHOT</version>
           <scope>compile</scope>
       </dependency>
       <!-- Vault Dependency -->
       <dependency>
           <groupId>net.milkbowl.vault</groupId>
           <artifactId>Vault</artifactId>
-          <version>1.2.22-SNAPSHOT</version>
+          <version>1.2.26-SNAPSHOT</version>
           <scope>compile</scope>
+      </dependency>
+      <!-- SakuraUtils Dependency -->
+      <dependency>
+          <groupId>net.syamn</groupId>
+          <artifactId>SakuraLib</artifactId>
+          <version>1.5.2-0.1</version>
       </dependency>
 
       <!-- Use Library (basedir/lib/) Directory -->

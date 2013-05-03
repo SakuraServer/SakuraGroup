@@ -12,8 +12,8 @@ import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
 import net.syamn.sakuragroup.manager.PEXManager;
-import net.syamn.sakuragroup.util.Actions;
-import net.syamn.sakuragroup.util.Util;
+import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.sakuragroup.utils.plugin.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

@@ -4,7 +4,8 @@
  */
 package net.syamn.sakuragroup.command;
 
-import net.syamn.sakuragroup.exception.CommandException;
+import net.syamn.utils.exception.CommandException;
+
 
 /**
  * ConfirmCommand (ConfirmCommand.java)

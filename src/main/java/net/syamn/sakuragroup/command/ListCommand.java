@@ -10,8 +10,8 @@ import java.util.Set;
 
 import net.syamn.sakuragroup.manager.PEXManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.util.Actions;
-import net.syamn.sakuragroup.util.Util;
+import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.sakuragroup.utils.plugin.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

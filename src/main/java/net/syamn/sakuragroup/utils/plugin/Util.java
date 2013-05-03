@@ -1,8 +1,8 @@
 /**
- * SakuraGroup - Package: net.syamn.sakuragroup.util
+ * SakuraGroup - Package: net.syamn.sakuragroup.utils.plugin
  * Created: 2012/10/16 3:17:13
  */
-package net.syamn.sakuragroup.util;
+package net.syamn.sakuragroup.utils.plugin;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -11,10 +11,10 @@ import java.util.List;
 import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.database.Database;
-import net.syamn.sakuragroup.exception.CommandException;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.util.Actions;
-import net.syamn.sakuragroup.util.Util;
+import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.sakuragroup.utils.plugin.Util;
+import net.syamn.utils.exception.CommandException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

@@ -10,7 +10,7 @@ import net.syamn.sakuragroup.Group;
 import net.syamn.sakuragroup.SakuraGroup;
 import net.syamn.sakuragroup.manager.SignManager;
 import net.syamn.sakuragroup.permission.Perms;
-import net.syamn.sakuragroup.util.Actions;
+import net.syamn.sakuragroup.utils.plugin.Actions;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

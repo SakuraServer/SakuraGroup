@@ -4,10 +4,10 @@
  */
 package net.syamn.sakuragroup.command;
 
-import net.syamn.sakuragroup.exception.CommandException;
 import net.syamn.sakuragroup.permission.Perms;
 import net.syamn.sakuragroup.task.ExpiredCheck;
-import net.syamn.sakuragroup.util.Actions;
+import net.syamn.sakuragroup.utils.plugin.Actions;
+import net.syamn.utils.exception.CommandException;
 
 /**
  * ForceCheckCommand (ForceCheckCommand.java)
